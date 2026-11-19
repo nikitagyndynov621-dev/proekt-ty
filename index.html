@@ -368,7 +368,7 @@ button:hover::after{transform:translateX(130%)}
   background:radial-gradient(circle at 50% 46%,#1b1332f5,#06060ffa 72%);
   -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
   animation:cdIn .55s ease both;transition:opacity .6s ease,transform .6s ease}
-.countdown.out{opacity:0;transform:scale(1.05);transition-duration:.52s}
+.countdown.out{opacity:0;transform:scale(1.05);transition-duration:.44s}
 @keyframes cdIn{from{opacity:0}to{opacity:1}}
 .cd-halo{position:absolute;width:min(80vw,430px);aspect-ratio:1;border-radius:50%;
   background:radial-gradient(circle,#f6d99424,#ffaec50c 55%,transparent 72%);animation:haloPulse 2.6s ease-in-out infinite}
@@ -406,7 +406,7 @@ button:hover::after{transform:translateX(130%)}
     <div class="decode-sub">уровень доступа подтверждается…</div>
   </div>
 </div>
-<button class="audio-toggle" id="audioToggle" type="button" aria-label="Звук">♪</button>
+<button class="audio-toggle" id="audioToggle" type="button" aria-label="Музыка досье" title="музыка досье ♪">♪</button>
 <main class="wrap">
 <section class="screen" id="start">
 <div class="hero-frame rv">
@@ -1603,7 +1603,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
       else setTimeout(() => {
         ov.classList.add('out');
         done && done();
-        setTimeout(() => { try{ ov.remove() }catch(e){} }, 640);
+        setTimeout(() => { try{ ov.remove() }catch(e){} }, 520);
       }, 860);
     };
     tick();
