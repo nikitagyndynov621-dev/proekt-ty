@@ -82,6 +82,16 @@
 .proekt-flash{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);z-index:99;padding:12px 20px;border-radius:99px;background:#171327ee;border:1px solid #f6d99455;color:#ffe9c9;font:12px Arial,sans-serif;letter-spacing:.05em;opacity:0;transition:.3s;backdrop-filter:blur(10px);pointer-events:none;max-width:86vw;text-align:center}
 .proekt-flash.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:520px){.card{padding:19px 16px}.card h4{font-size:19px}.dose-text,.heat-text,.dice-text{font-size:16px}.scratch-reveal{min-height:170px;font-size:16px}}
+
+.deck-chip.on,.dice-mode.on{background:linear-gradient(115deg,#ffe5a6,#f1aabe);color:#291426;border-color:transparent;font-weight:700}
+.tod-text{margin:14px 0 0;padding:15px 16px;border-radius:14px;background:#ffaec50e;border:1px solid #ffaec53d;color:#ffeaf0;font-size:17px;line-height:1.6;min-height:70px}
+.wheel-wrap{position:relative;width:min(272px,74vw);margin:6px auto 4px;aspect-ratio:1}
+.wheel{width:100%;height:100%;border-radius:50%;position:relative;transition:transform 4.2s cubic-bezier(.15,.85,.18,1);box-shadow:0 0 44px #f6d99426,inset 0 0 0 6px #0b0918,inset 0 0 0 7px #f6d99455}
+.wheel-inner{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(#2a2142 0 45deg,#3b2b52 45deg 90deg,#2a2142 90deg 135deg,#4a2540 135deg 180deg,#2a2142 180deg 225deg,#3b2b52 225deg 270deg,#2a2142 270deg 315deg,#4a2540 315deg 360deg);}
+.wheel-inner span{position:absolute;left:50%;top:50%;transform-origin:0 0;font:10px Arial,sans-serif;letter-spacing:.06em;color:#ffe9c9;white-space:nowrap;text-transform:uppercase}
+.wheel-pointer{position:absolute;left:50%;top:-14px;transform:translateX(-50%);color:#ffaec5;font-size:19px;z-index:3;filter:drop-shadow(0 4px 10px #ff5f8f88)}
+.wheel-center{position:absolute;inset:36%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a2f56,#15111f);border:1px solid #f6d99466;display:grid;place-items:center;font-size:20px;color:var(--gold);z-index:2;box-shadow:0 0 26px #f6d99433}
 </style></head>
 <body><main class="wrap">
 <section class="screen" id="start"><div class="micro">засекреченное досье · доступ по приглашению</div><div class="sigil">✧</div><h1>Проект<br><span>«Ты»</span></h1><p class="intro">В одной далёкой галактике случилось невероятное.<br>Один человек понял, что нашёл своё любимое чудо.<br><br>Для продолжения истории требуется один смелый клик.</p><button id="launch">Начать миссию&nbsp; →</button><div class="footer">УРОВЕНЬ ДОСТУПА: ТОЛЬКО ТЫ</div></section>
@@ -94,7 +104,7 @@
       <p class="hot-sub">Шесть интерактивов, которые я собрал специально, чтобы ты краснела. Открывай по одному — счётчик внизу покажет, сколько ты уже распаковала.</p>
       <div class="unpack">
         <div class="unpack-bar"><div class="unpack-fill" id="unpackFill"></div></div>
-        <div class="unpack-lbl">распаковано: <span id="unpackNum">0</span> / 12</div>
+        <div class="unpack-lbl">распаковано: <span id="unpackNum">0</span> / 18</div>
       </div>
     </div>
 
@@ -104,10 +114,10 @@
       <div class="card">
         <span class="micro">интерактив 01 · откровенность</span>
         <h4>Дозиметр пошлости</h4>
-        <p class="hint">Пять ступеней. Каждая следующая — честнее предыдущей. Дальше только для твоих глаз.</p>
+        <p class="hint">Семь ступеней. Четыре приличные — и три, после которых я обычно перехожу на шёпот. 🔞</p>
         <div class="dose-track"><div class="dose-fill" id="doseFill"></div></div>
         <div class="dose-scale" id="doseScale">
-          <span>нежность</span><span>флирт</span><span>искры</span><span>горячо</span><span>🔞</span>
+          <span>нежн.</span><span>флирт</span><span>искры</span><span>горячо</span><span>🔞</span><span>🔞+</span><span>🔥</span>
         </div>
         <p class="dose-text" id="doseText">Потяни уровень — и я скажу честно, что думаю.</p>
         <div class="row">
@@ -125,6 +135,12 @@
           <div class="scratch-reveal" id="scratchText">…</div>
           <canvas id="scratchCanvas"></canvas>
         </div>
+        <div class="row" style="margin-top:11px">
+          <span class="mini">жёсткость:</span>
+          <button class="ghost-sm deck-chip on" data-deck="soft">мягко</button>
+          <button class="ghost-sm deck-chip" data-deck="bold">дерзко</button>
+          <button class="ghost-sm deck-chip" data-deck="hard">жёстко 🔞</button>
+        </div>
         <div class="row">
           <button class="ghost-sm" id="scratchNew">Другое откровение ✧</button>
           <span class="mini" id="scratchCount">стёрто: 0</span>
@@ -138,6 +154,11 @@
         <p class="hint">Одно нажатие — одно задание. Считается выполненным, даже если ты просто покраснела.</p>
         <div class="dice-face" id="diceFace">✧</div>
         <p class="dice-text" id="diceText">Кубик ещё не брошен…</p>
+        <div class="row" style="margin-top:11px">
+          <span class="mini">режим:</span>
+          <button class="ghost-sm dice-mode on" data-hot="0">невинный</button>
+          <button class="ghost-sm dice-mode" data-hot="1">жёсткий 🔞</button>
+        </div>
         <div class="row">
           <button class="btn-sm" id="diceRoll">Бросить кубик</button>
           <button class="ghost-sm" id="diceCopy">Отправить мне 💌</button>
@@ -180,6 +201,42 @@
         <p class="heat-text" id="timerHint" style="margin-top:12px"></p>
       </div>
 
+      <!-- 07 ПРАВДА ИЛИ ЖЕЛАНИЕ -->
+      <div class="card">
+        <span class="micro">интерактив 07 · только честно</span>
+        <h4>Правда или желание</h4>
+        <p class="hint">Нажимай и отвечай. Врать нельзя — я всё равно почувствую по голосу.</p>
+        <p class="tod-text" id="todText">Ещё не выбрано. Смелее.</p>
+        <div class="row">
+          <button class="btn-sm" id="todTruth">Правда 🙈</button>
+          <button class="btn-sm" id="todDare">Желание 🔥</button>
+          <button class="ghost-sm" id="todCopy">Отправить 💌</button>
+        </div>
+      </div>
+
+      <!-- 08 КОЛЕСО -->
+      <div class="card">
+        <span class="micro">интерактив 08 · воля случая</span>
+        <h4>Колесо фортуны</h4>
+        <p class="hint">Восемь секторов, один исход. Что выпадет — то и делаем при встрече. Без споров.</p>
+        <div class="wheel-wrap">
+          <div class="wheel-pointer">▼</div>
+          <div class="wheel" id="wheel"><div class="wheel-inner" id="wheelInner"></div></div>
+        </div>
+        <p class="tod-text" id="wheelText" style="text-align:center">Колесо ждёт первого оборота…</p>
+        <div class="row" style="justify-content:center">
+          <button class="btn-sm" id="wheelSpin">Крутить колесо</button>
+          <button class="ghost-sm" id="wheelCopy">Отправить 💌</button>
+        </div>
+      </div>
+
+      <!-- 09 ГРАНИЦЫ -->
+      <div class="card" style="border-color:#7ad7a755">
+        <span class="micro" style="color:#8fe0b1">важно · между нами</span>
+        <h4>Стоп-слово</h4>
+        <p class="heat-text" id="safeText">Всё, что здесь написано — только между нами и только с твоего согласия. Если станет слишком — скажи <b style="color:#8fe0b1">«дом»</b>, и я остановлюсь сразу, без вопросов и обид. А пока — можно всё. 😈</p>
+      </div>
+
     </div>
   </div>
 
@@ -199,7 +256,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
   };
 
   /* ---- общий счётчик «распаковано» ---- */
-  const TOTAL=12;
+  const TOTAL=18;
   let unpacked=Number(store.get('proekt_unpacked')||0);
   function bump(n){
     unpacked=Math.min(TOTAL,Math.max(unpacked,n));
@@ -208,7 +265,10 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     if(num) num.textContent=unpacked;
     if(fill) fill.style.width=(unpacked/TOTAL*100)+'%';
   }
-  function addUnpack(){ if(unpacked<TOTAL) bump(unpacked+1); }
+  function addUnpack(){
+    unpacked=Math.max(unpacked, Number(store.get('proekt_unpacked')||0));
+    if(unpacked<TOTAL) bump(unpacked+1);
+  }
   bump(unpacked);
 
   /* ============ 01 · ДОЗИМЕТР ============ */
@@ -217,7 +277,9 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     {label:'флирт', text:'Хочу, чтобы ты пришла ко мне в моей рубашке. И, желательно, без всего под ней. 👀'},
     {label:'искры', text:'Хочу целовать тебя не только в губы: шея, ключицы, линия плеча — туда, где ты этого совсем не ждёшь. 💋'},
     {label:'горячо', text:'Хочу прижать тебя к стене, услышать, как сбивается дыхание, и целовать, пока ты не скажешь «хватит»… а потом ещё немного. 🔥'},
-    {label:'🔞', text:'Хочу закрыть дверь, выключить телефон и любить тебя так, чтобы ты забыла, как тебя зовут. А утром напомнил. 🔞'}
+    {label:'🔞 вход', text:'Хочу, чтобы ты стояла передо мной и медленно расстёгивала рубашку — пуговица за пуговицей, глядя мне в глаза. А я даже не буду помогать. Только смотреть. 🔞'},
+    {label:'🔞 громче', text:'Хочу целовать тебя ниже, пока ты не начнёшь путаться в словах, и слышать, как ты просишь меня не останавливаться. Голосом, от которого у меня сносит крышу. 🔥🔞'},
+    {label:'🔥 без тормозов', text:'Хочу, чтобы ты цеплялась за простыни, стонала моё имя и к утру не помнила, как тебя зовут. И чтобы потом весь день саднило — как напоминание, чем мы занимались. 💦🔞'}
   ];
   let dose=Number(store.get('proekt_dose')||0);
   function renderDose(animate){
@@ -245,27 +307,49 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
   if(doseReset) doseReset.onclick=()=>{ dose=0; $('doseUp').textContent='+1 уровень'; renderDose(true); };
 
   /* ============ 02 · СКРЕТЧ ============ */
-  const SCRATCH=[
-    'Я думаю о тебе не только днём. И не только нежно. 🔥',
-    'Ты в моей голове в самых разных позах. И я не жалуюсь. 😏',
-    'Хочу проснуться раньше тебя, смотреть на спящую… а потом целовать, пока ты не откроешь глаза.',
-    'Если бы я мог загадать что угодно — ты была бы сейчас здесь. И без одежды. 🔞',
-    'Мне нравится, как ты кусаешь губы, когда думаешь о чём-то приятном. Я хочу быть причиной.',
-    'Твой утренний голос, сонный и тихий, заводит меня сильнее любого фото. 💋',
-    'Хочу, чтобы ты шептала мне на ухо то, что не напишешь даже в сообщении.',
-    'Одна твоя улыбка — и мне приходится напоминать себе, что мы не одни. 😅',
-    'Хочу целовать тебя в шею сзади, медленно, пока ты не начнёшь таять.',
-    'Самое пошлое, что я делал за эти дни — перечитывал твои сообщения ночью. Не один раз. 🔞'
-  ];
+  const DECKS={
+    soft:[
+      'Я думаю о тебе не только днём. И не только нежно. 🔥',
+      'Ты в моей голове в самых разных позах. И я не жалуюсь. 😏',
+      'Хочу проснуться раньше тебя, смотреть на спящую… а потом целовать, пока ты не откроешь глаза.',
+      'Мне нравится, как ты кусаешь губы, когда думаешь о чём-то приятном. Я хочу быть причиной.',
+      'Твой утренний голос, сонный и тихий, заводит меня сильнее любого фото. 💋',
+      'Хочу, чтобы ты шептала мне на ухо то, что не напишешь даже в сообщении.',
+      'Хочу целовать тебя в шею сзади, медленно, пока ты не начнёшь таять.',
+      'Самое пошлое, что я делал за эти дни — перечитывал твои сообщения ночью. Не один раз. 🔞'
+    ],
+    bold:[
+      'Хочу снять с тебя всё, кроме украшений, и смотреть, как ты смущаешься. 😈',
+      'Хочу, чтобы ты пришла без белья и сказала мне об этом на ухо, глядя в глаза.',
+      'Хочу поставить тебя на колени и держать за подбородок, пока ты не начнёшь отводить взгляд.',
+      'Твои бёдра, твои губы, твой запах — я схожу с ума по всему сразу, а не по отдельности.',
+      'Хочу, чтобы ты сидела сверху и решала, что будет дальше. Я только выполняю.',
+      'Хочу оставить на твоей шее след, который придётся прятать под шарфом.',
+      'Хочу целовать тебя там, где ты постесняешься попросить — и услышать, как ты просишь шёпотом.',
+      'Хочу проверять, сколько ты выдержишь, прежде чем начнёшь умолять. 🔞'
+    ],
+    hard:[
+      'Хочу трахать тебя медленно — чтобы ты сама попросила быстрее. 🔞',
+      'Хочу, чтобы ты стояла, наклонившись над столом, а я собирал волосы с твоей шеи в кулак.',
+      'Хочу целовать тебя между ног, пока ты не перестанешь связно говорить. И ещё десять минут после.',
+      'Хочу, чтобы ты громко стонала моё имя и не сдерживалась, даже если слышно соседям.',
+      'Хочу связать тебе руки и мучить так долго, чтобы ты умоляла.',
+      'Хочу кончить тебе на живот и посмотреть тебе в глаза в этот момент. 🔞',
+      'Хочу, чтобы ты сама довела себя до предела — а я смотрел и говорил, что тебе делать.',
+      'Хочу утром повторить всё, что было ночью, только медленнее и с самого начала. 💦'
+    ]
+  };
+  let deck='soft';
   let scratchIdx=-1, scratched=Number(store.get('proekt_scratched')||0);
   const canvas=$('scratchCanvas'), stext=$('scratchText'), scount=$('scratchCount');
   let ctx=null, cleared=false, drawing=false, prog=0;
 
   function pickScratch(){
+    const list=DECKS[deck];
     let i=scratchIdx;
-    while(i===scratchIdx) i=Math.floor(Math.random()*SCRATCH.length);
+    while(i===scratchIdx) i=Math.floor(Math.random()*list.length);
     scratchIdx=i;
-    if(stext) stext.innerHTML='<span>'+SCRATCH[i]+'</span>';
+    if(stext) stext.innerHTML='<span>'+list[i]+'</span>';
   }
   function paintFog(){
     if(!canvas) return;
@@ -367,20 +451,36 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     'Напиши мне одну строчку, которую хотела сказать в глаза, но не решалась.',
     'Обними меня так, будто мы не виделись год. Дальше — по обстоятельствам. 🤍'
   ];
+  const DICE_HOT=[
+    'Скажи вслух, что хочешь, чтобы я с тобой сделал. Без «не знаю». 🔞',
+    'Голосовое: опиши шёпотом, как ты меня хочешь. Чем грязнее — тем лучше.',
+    'Фото: на тебе только моя рубашка. И ничего больше. 😈',
+    'Назови три вещи, которые хочешь попробовать. Я запомню все три.',
+    'Напиши, куда и как хочешь, чтобы я тебя поцеловал. Без цензуры.',
+    'Пришли фото того места на себе, о котором сейчас думаешь. Я пойму.',
+    'Скажи честно, что тебе больше всего нравится, когда я делаю. Максимально прямо.',
+    'Голосовое: стон. Просто стон, без слов. Я разберусь. 💦',
+    'Опиши нашу первую ночь так, как ты её себе представляешь. Подробно.',
+    'Скажи «хочу тебя» — вслух. Даже если кто-то рядом. 🔥',
+    'Выбери: связать руки, завязать глаза или и то, и другое. Ответ обязателен.',
+    'Напиши мне одно слово, от которого я приеду сразу. Любое. 🔞'
+  ];
+  let diceHot=false;
   let lastDice=-1;
   if($('diceRoll')){
     $('diceRoll').onclick=()=>{
       const face=$('diceFace'), txt=$('diceText');
+      const POOL=diceHot?DICE_HOT:DICE;
       face.classList.add('roll');
       let n=0;
       const iv=setInterval(()=>{
-        txt.textContent=DICE[Math.floor(Math.random()*DICE.length)];
+        txt.textContent=POOL[Math.floor(Math.random()*POOL.length)];
         if(++n>7){
           clearInterval(iv);
           face.classList.remove('roll');
           let i=lastDice; while(i===lastDice) i=Math.floor(Math.random()*DICE.length);
           lastDice=i;
-          txt.textContent=DICE[i];
+          txt.textContent=POOL[i];
           face.textContent=['✦','✧','♥','♡','✿','❋'][i%6];
           addUnpack(); burst(14);
         }
@@ -493,6 +593,10 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
   }
   renderTimer(); setInterval(renderTimer,1000);
 
+  /* ---- мостик для второго скрипта (жёсткие колоды/режимы) ---- */
+  window.__proektSetDeck=function(d){ deck=d; pickScratch(); paintFog(); painted=true; };
+  window.__proektSetDiceHot=function(v){ diceHot=!!v; };
+
   /* ---- копирование ---- */
   function copyText(t){
     const done=()=>{ flash('Скопировано — отправляй мне 💌'); };
@@ -513,6 +617,158 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     el.textContent=msg; el.classList.add('show');
     clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2200);
   }
+})();
+</script>
+
+<script>
+/* ===== ЖЁСТКИЙ УРОВЕНЬ: колоды, режимы, правда/желание, колесо ===== */
+(function(){
+  const $=(id)=>document.getElementById(id);
+  function unpackBump(){
+    const num=$('unpackNum'), fill=$('unpackFill');
+    if(!num) return;
+    let v=Number(num.textContent||0);
+    v=Math.min(18,v+1); num.textContent=v;
+    if(fill) fill.style.width=(v/18*100)+'%';
+    try{localStorage.setItem('proekt_unpacked',v)}catch(e){}
+  }
+  function toast(msg){
+    let el=document.querySelector('.proekt-flash');
+    if(!el){el=document.createElement('div');el.className='proekt-flash';document.body.appendChild(el);}
+    el.textContent=msg;el.classList.add('show');
+    clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200);
+  }
+  function copyIt(t){
+    if(navigator.share){navigator.share({text:t}).catch(()=>fb());}
+    else fb();
+    function fb(){
+      const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');}catch(e){}
+      ta.remove();toast('Скопировано — отправляй мне 💌');
+    }
+  }
+
+  /* --- колоды скретча --- */
+  const deckBtns=document.querySelectorAll('.deck-chip');
+  deckBtns.forEach(b=>b.onclick=()=>{
+    deckBtns.forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    window.__proektDeck=b.dataset.deck;
+    const ev=new CustomEvent('proekt-deck',{detail:b.dataset.deck});
+    document.dispatchEvent(ev);
+  });
+
+  /* --- режимы кубика --- */
+  const diceBtns=document.querySelectorAll('.dice-mode');
+  diceBtns.forEach(b=>b.onclick=()=>{
+    diceBtns.forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.dispatchEvent(new CustomEvent('proekt-dicemode',{detail:b.dataset.hot==='1'}));
+  });
+
+  /* --- правда или желание --- */
+  const TRUTH=[
+    'Какая поза у тебя любимая? Назови без стеснения.',
+    'Что бы ты хотела, чтобы я делал с тобой прямо сейчас?',
+    'Ты когда-нибудь трогала себя, думая обо мне?',
+    'Что заводит сильнее — мои руки, голос или взгляд?',
+    'О чём самом пошлом ты мечтала и никому не рассказывала?',
+    'Где в квартире ты хочешь меня? Назови место.',
+    'Что тебе нравится больше: когда я нежный или когда я жёсткий?',
+    'Сколько раз за день ты обо мне думаешь «в этом смысле»? 🔞'
+  ];
+  const DARE=[
+    'Голосовым скажи самое грязное, что думаешь обо мне. Цензуры нет.',
+    'Сними одну вещь и пришли мне фото. Прямо сейчас. 😈',
+    'Напиши три слова, за которые я приеду немедленно.',
+    'Опиши, что сделаешь со мной в первую минуту встречи. Подробно.',
+    'Следующий поцелуй — не меньше минуты. Начинай считать вслух.',
+    'Скажи «хочу тебя» вслух, даже если кто-то рядом.',
+    'Пришли фото своих губ. И напиши, что хочешь ими сделать.',
+    'Выбери: связать руки, завязать глаза или всё сразу. Ответ обязателен. 🔞'
+  ];
+  let todLast={truth:-1,dare:-1};
+  function pickTOD(kind){
+    const pool=kind==='truth'?TRUTH:DARE;
+    let i=todLast[kind];
+    while(i===todLast[kind]) i=Math.floor(Math.random()*pool.length);
+    todLast[kind]=i;
+    const txt=$('todText');
+    txt.textContent=(kind==='truth'?'ПРАВДА · ':'ЖЕЛАНИЕ · ')+pool[i];
+    txt.style.borderColor=kind==='truth'?'#b7a5ff66':'#ff7a9e66';
+    unpackBump();
+    if(window.burst) burst(14);
+  }
+  if($('todTruth')) $('todTruth').onclick=()=>pickTOD('truth');
+  if($('todDare')) $('todDare').onclick=()=>pickTOD('dare');
+  if($('todCopy')) $('todCopy').onclick=()=>{
+    const t=$('todText').textContent;
+    if(!t||t.indexOf('Ещё не выбрано')===0) return toast('Сначала выбери правду или желание');
+    copyIt('На сайте мне выпало: «'+t+'» — выполняю 😏');
+  };
+
+  /* --- колесо фортуны --- */
+  const SEG=[
+    {t:'поцелуй в шею',e:'💋'},
+    {t:'медленно раздеть',e:'🌙'},
+    {t:'шёпот на ухо',e:'🗣️'},
+    {t:'60 сек не отпускать',e:'🤍'},
+    {t:'поцелуй ниже',e:'🔥'},
+    {t:'ты сверху',e:'👑'},
+    {t:'связать руки',e:'🔗'},
+    {t:'сюрприз от тебя',e:'🎁'}
+  ];
+  const inner=$('wheelInner'), wheel=$('wheel');
+  if(inner){
+    SEG.forEach((seg,i)=>{
+      const a=i*45+22.5;
+      const sp=document.createElement('span');
+      sp.textContent=seg.t;
+      const rad=(a-90)*Math.PI/180;
+      sp.style.left=(50+Math.cos(rad)*31)+'%';
+      sp.style.top=(50+Math.sin(rad)*31)+'%';
+      sp.style.transform='translate(-50%,-50%)';
+      sp.style.transformOrigin='center';
+      sp.style.maxWidth='34%';
+      sp.style.textAlign='center';
+      sp.style.lineHeight='1.15';
+      sp.style.whiteSpace='normal';
+      inner.appendChild(sp);
+    });
+    const c=document.createElement('div'); c.className='wheel-center'; c.textContent='✧'; inner.appendChild(c);
+  }
+  let wheelAngle=0, spinning=false, lastSeg=-1;
+  if($('wheelSpin')) $('wheelSpin').onclick=()=>{
+    if(spinning) return;
+    spinning=true;
+    let i=lastSeg;
+    while(i===lastSeg) i=Math.floor(Math.random()*SEG.length);
+    lastSeg=i;
+    // сектор i занимает [i*45, i*45+45); указатель сверху (-90°)
+    const target=360*6 + (360 - (i*45+22.5));
+    wheelAngle=wheelAngle - (wheelAngle%360) + target;
+    wheel.style.transform='rotate('+wheelAngle+'deg)';
+    $('wheelText').textContent='Колесо решает…';
+    setTimeout(()=>{
+      $('wheelText').textContent=SEG[i].e+'  '+SEG[i].t.toUpperCase();
+      spinning=false; unpackBump();
+      if(window.burst) burst(26);
+    },4300);
+  };
+  if($('wheelCopy')) $('wheelCopy').onclick=()=>{
+    const t=$('wheelText').textContent;
+    if(!t||t.indexOf('ждёт')>0) return toast('Сначала крути колесо ✧');
+    copyIt('Колесо на сайте выбрало: '+t+' — значит, так и будет 😈');
+  };
+
+  /* --- связываем новые колоды/режимы со старым модулем --- */
+  document.addEventListener('proekt-deck',(e)=>{
+    if(window.__proektSetDeck) window.__proektSetDeck(e.detail);
+  });
+  document.addEventListener('proekt-dicemode',(e)=>{
+    if(window.__proektSetDiceHot) window.__proektSetDiceHot(e.detail);
+  });
 })();
 </script>
 </body></html>
