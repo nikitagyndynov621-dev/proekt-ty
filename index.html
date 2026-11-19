@@ -395,6 +395,53 @@ button:hover::after{transform:translateX(130%)}
   .cd-halo{animation:none}
   .cd-num.pop{animation:none}
 }
+
+/* ============ ПРОТОКОЛ 11 · ИСПЫТАНИЕ ============ */
+.trial{margin:54px auto 8px;max-width:760px;text-align:center}
+.trial-lead{max-width:580px;margin:14px auto 0;color:#c8c2d8;font-size:15px;line-height:1.75}
+.trial-stage{position:relative;margin:22px auto 0;padding:26px 20px 20px;border:1px solid #f6d99444;border-radius:2px;
+  background:linear-gradient(170deg,#ff6f9a0c,#00000000);box-shadow:0 30px 90px #00000066,inset 0 1px 0 #ffffff10}
+.trial-stage::before,.trial-stage::after{content:"";position:absolute;width:30px;height:30px;border:1px solid #f6d9945c}
+.trial-stage::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.trial-stage::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.trial-top{display:flex;align-items:baseline;justify-content:center;gap:10px}
+.trial-top span#trialClock{font-family:Georgia,serif;font-size:clamp(52px,13vw,84px);line-height:1;color:var(--gold);
+  font-variant-numeric:tabular-nums;text-shadow:0 0 40px #f6d99455}
+.trial-unit{font:9px Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#8b84a8}
+.trial-bar{height:2px;margin:14px 0 20px;background:#ffffff12;overflow:hidden}
+.trial-bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#f6d994,#ffaec5);
+  transition:width 1s linear;box-shadow:0 0 14px #f6d99488}
+.trial-line{margin:0;min-height:104px;display:grid;place-items:center;font-style:italic;font-size:clamp(16px,4.2vw,20px);
+  line-height:1.6;color:#fff0f4;transition:opacity .28s ease}
+.trial-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.trial-stage.hot{border-color:#ff6f9a88;box-shadow:0 30px 110px #ff6f9a2a,inset 0 1px 0 #ffffff18}
+
+.hold-wrap{margin:34px auto 0;padding:24px 18px;max-width:560px;border:1px solid #ffaec52e;border-radius:2px;
+  background:linear-gradient(180deg,#ffaec508,#00000000)}
+.hold-label{font:9px Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#8b84a8;margin-bottom:16px}
+.hold-btn{position:relative;width:100%;max-width:340px;margin:0 auto;display:block;overflow:hidden;
+  background:#ffffff08!important;color:#ffeaf0!important;border:1px solid #ffaec566!important;border-radius:2px!important;
+  padding:16px 18px!important;font:11px Arial,sans-serif!important;letter-spacing:.22em!important;text-transform:uppercase;
+  touch-action:none;user-select:none;-webkit-user-select:none}
+.hold-btn span{position:relative;z-index:2;pointer-events:none}
+.hold-fill{position:absolute;inset:0;width:0;background:linear-gradient(90deg,#c9425f,#ffaec5);opacity:.55;z-index:1;pointer-events:none}
+.hold-btn.done{border-color:#f6d994!important;color:#fff6e0!important}
+.ultra{margin-top:22px;text-align:left;animation:fadeUp .7s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ultra p{margin:0 0 14px;padding-left:16px;border-left:1px solid #ff6f9a66;font-size:16.5px;line-height:1.65;color:#fff0f4}
+.ultra .ultra-end{font-style:italic;color:#d9a2b3;border-left:0;padding-left:0;margin-top:20px;text-align:center}
+
+.builder{margin:38px auto 0;max-width:640px;text-align:left}
+.bld-group{margin-bottom:14px}
+.bld-name{display:block;font:9px Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#8b84a8;margin-bottom:8px}
+.bld-chip{cursor:pointer;background:#ffffff08;border:1px solid #ffffff1c;border-radius:2px;color:#d8d2e8;
+  padding:9px 12px;margin:0 6px 8px 0;font:12px Arial,sans-serif;letter-spacing:.04em;transition:.2s}
+.bld-chip:hover{border-color:#f6d99488;color:#fff}
+.bld-chip.on{background:linear-gradient(115deg,#ffe5a6,#f1aabe);color:#291426;border-color:#f6d994;font-weight:bold}
+.bld-out{margin:16px 0 6px;padding:16px;border:1px solid #f6d9943d;border-radius:2px;background:#ffffff06;
+  color:#fff0f4;font-size:16px;line-height:1.65;min-height:72px}
+.bld-out b{color:var(--gold);font-weight:400}
+@media(max-width:520px){.trial-line{font-size:15.5px;min-height:118px}.bld-chip{font-size:11.5px;padding:8px 10px}}
 @media(prefers-reduced-motion:reduce){.decode{display:none}}
 </style></head>
 <body>
@@ -592,6 +639,70 @@ button:hover::after{transform:translateX(130%)}
 
     </div>
   </div>
+
+<div class="trial rv" id="trial">
+  <div class="micro" style="display:block;text-align:center">протокол 11 · испытание</div>
+  <h2 class="orn-title" style="display:block;text-align:center">Шестьдесят секунд</h2>
+  <div class="orn-rule"><i></i><em>❦</em><i></i></div>
+  <p class="trial-lead">Сядь ровно. Руки на колени. Таймер идёт — и с каждой строкой становится хуже. Не смей трогать себя, пока он не дойдёт до нуля.</p>
+
+  <div class="trial-stage">
+    <div class="trial-top"><span id="trialClock">60</span><span class="trial-unit">секунд</span></div>
+    <div class="trial-bar"><i id="trialFill"></i></div>
+    <p class="trial-line" id="trialLine">Нажми «Начать» — и держись.</p>
+    <div class="trial-actions">
+      <button class="btn-sm" id="trialStart">Начать</button>
+      <button class="ghost-sm" id="trialGiveUp">Сдалась</button>
+    </div>
+  </div>
+
+  <div class="hold-wrap">
+    <div class="hold-label">а это — только для тех, кто не боится</div>
+    <button class="hold-btn" id="holdBtn">
+      <i class="hold-fill" id="holdFill"></i>
+      <span>держи 3 секунды</span>
+    </button>
+    <div class="ultra hidden" id="ultra">
+      <p>Хочу, чтобы ты сидела на мне и не двигалась, пока я не разрешу.</p>
+      <p>Хочу слышать, как ты шёпотом просишь не останавливаться — и не слушать тебя.</p>
+      <p>Хочу, чтобы утром ты нашла следы и улыбнулась, вспомнив, откуда они.</p>
+      <p class="ultra-end">Теперь ты знаешь, о чём я думаю, когда молчу.</p>
+    </div>
+  </div>
+
+  <div class="builder">
+    <div class="hold-label">собери сегодняшний вечер</div>
+    <div class="bld-group" data-g="где"><span class="bld-name">где</span>
+      <button class="bld-chip" data-v="в спальне, с закрытой дверью">в спальне</button>
+      <button class="bld-chip" data-v="в душе, пока вода ещё горячая">в душе</button>
+      <button class="bld-chip" data-v="на кухне, где я подниму тебя на стол">на кухне</button>
+      <button class="bld-chip" data-v="там, где нас могут услышать">там, где услышат</button>
+    </div>
+    <div class="bld-group" data-g="темп"><span class="bld-name">темп</span>
+      <button class="bld-chip" data-v="медленно и мучительно, до слёз">медленно</button>
+      <button class="bld-chip" data-v="без прелюдий, сразу к делу">без прелюдий</button>
+      <button class="bld-chip" data-v="с долгой издевательской прелюдией">долго дразнить</button>
+      <button class="bld-chip" data-v="до самого утра, пока не кончатся силы">до утра</button>
+    </div>
+    <div class="bld-group" data-g="кто"><span class="bld-name">кто ведёт</span>
+      <button class="bld-chip" data-v="веду я, и ты делаешь всё, что я скажу">я</button>
+      <button class="bld-chip" data-v="ведёшь ты, а я только выполняю">ты</button>
+      <button class="bld-chip" data-v="по очереди, пока кто-то не сдастся">по очереди</button>
+      <button class="bld-chip" data-v="тот, кто первым не выдержит">кто не выдержит</button>
+    </div>
+    <div class="bld-group" data-g="финал"><span class="bld-name">финал</span>
+      <button class="bld-chip" data-v="без единого слова, только дыхание">без слов</button>
+      <button class="bld-chip" data-v="с руками, которые я свяжу твоим же шарфом">связанные руки</button>
+      <button class="bld-chip" data-v="перед зеркалом, чтобы ты смотрела">у зеркала</button>
+      <button class="bld-chip" data-v="до последнего вздоха, а потом ещё раз">до последнего вздоха</button>
+    </div>
+    <div class="bld-out" id="bldOut">Выбери по одному — и я скажу, что будет.</div>
+    <div class="trial-actions">
+      <button class="btn-sm" id="bldSend">Отправить ему</button>
+      <button class="ghost-sm" id="bldReset">сбросить</button>
+    </div>
+  </div>
+</div>
 
 <div class="whisper rv" id="whisper">
   <div class="micro" style="display:block;text-align:center">протокол 10 · только шёпотом</div>
@@ -1269,7 +1380,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
   }
 
   /* --- появление блоков --- */
-  const targets = document.querySelectorAll('.card, .hero-frame, .letterbox, .hot-head, .map, .spicy, .seal, .orn-rule, .finale-card, .whisper, .whisper-stage');
+  const targets = document.querySelectorAll('.card, .hero-frame, .letterbox, .hot-head, .map, .spicy, .seal, .orn-rule, .finale-card, .whisper, .whisper-stage, .trial, .trial-stage, .hold-wrap, .builder');
   if('IntersectionObserver' in window){
     targets.forEach(el => el.classList.add('rv'));
     const io = new IntersectionObserver((entries) => {
@@ -1490,6 +1601,171 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
       countdown(() => swap($('start'), $('game'), () => { startBtn.dataset.busy = '0'; }));
     };
   }
+
+  /* ---------- 2c. ИСПЫТАНИЕ: 60 секунд, удержание, конструктор вечера ---------- */
+  function flash(msg){
+    let el = document.querySelector('.proekt-flash');
+    if(!el){ el = document.createElement('div'); el.className = 'proekt-flash'; document.body.appendChild(el); }
+    el.textContent = msg; el.classList.add('show');
+    clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2400);
+  }
+  function copyText(txt){
+    const done = () => flash('скопировано — отправь ему');
+    if(navigator.share){
+      navigator.share({ text: txt }).then(done).catch(() => fallback());
+    } else fallback();
+    function fallback(){
+      const ta = document.createElement('textarea');
+      ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ prompt('Скопируй вручную:', txt); }
+      ta.remove();
+    }
+  }
+
+  const LINES = [
+    'Дыши глубже. Медленнее, чем обычно. Ещё медленнее.',
+    'Руки на колени. Не двигайся. Даже если очень хочется.',
+    'Вспомни, как я смотрю на тебя, когда ты снимаешь платье. Не отводи взгляд.',
+    'Представь мою руку на твоей шее. Даже не прикосновение — только вес ладони.',
+    'А теперь мои губы на ключице. Ниже. Ещё ниже. И ты всё ещё не двигаешься.',
+    'Ты уже чувствуешь, как это отдаётся внизу живота. Значит, работает.',
+    'Осталось двадцать секунд. Держись. Я знаю, чего тебе это стоит.',
+    'Десять. Досчитаешь — и я расскажу, что сделаю с тобой, когда мы останемся одни.'
+  ];
+  const tClock = $('trialClock'), tFill = $('trialFill'), tLine = $('trialLine'),
+        tStart = $('trialStart'), tGive = $('trialGiveUp'), tStage = $('trialStage') || document.querySelector('.trial-stage');
+  let tTimer = null, tLeft = 60, tElapsed = 0;
+
+  function paintTrial(){
+    if(tClock) tClock.textContent = tLeft;
+    if(tFill) tFill.style.width = (tLeft / 60 * 100) + '%';
+    const idx = Math.min(LINES.length - 1, Math.floor(tElapsed / 7.4));
+    if(tLine && tLine.dataset.i !== String(idx)){
+      tLine.dataset.i = String(idx);
+      tLine.style.opacity = 0;
+      setTimeout(() => { tLine.textContent = LINES[idx]; tLine.style.opacity = 1; }, 180);
+    }
+  }
+  function stopTrial(win){
+    clearInterval(tTimer); tTimer = null;
+    if(tStart){ tStart.textContent = 'Ещё раз'; tStart.disabled = false; }
+    if(win){
+      if(tLine){ tLine.textContent = 'Выдержала. Теперь можно — и я не буду говорить, что именно.'; }
+      if(tStage) tStage.classList.add('hot');
+      if(window.burst) burst(30);
+      if(window.proektChime) window.proektChime(1046.5, .6);
+      haptic(30);
+    }
+  }
+  if(tStart) tStart.onclick = () => {
+    clearInterval(tTimer);
+    tLeft = 60; tElapsed = 0;
+    if(tStage) tStage.classList.remove('hot');
+    if(tLine){ tLine.dataset.i = ''; tLine.textContent = LINES[0]; tLine.style.opacity = 1; }
+    tStart.disabled = true; tStart.textContent = 'идёт…';
+    paintTrial();
+    tTimer = setInterval(() => {
+      tElapsed += 1; tLeft -= 1;
+      paintTrial();
+      if(tLeft <= 0){ stopTrial(true); }
+    }, 1000);
+  };
+  if(tGive) tGive.onclick = () => {
+    clearInterval(tTimer); tTimer = null;
+    if(tStart){ tStart.disabled = false; tStart.textContent = 'Начать'; }
+    if(tStage) tStage.classList.remove('hot');
+    if(tLine){ tLine.dataset.i = ''; tLine.textContent = 'Сдалась. Я так и знал. Ничего — в следующий раз держать буду я.'; }
+  };
+
+  /* --- удержание 3 секунды --- */
+  const hBtn = $('holdBtn'), hFill = $('holdFill'), ultra = $('ultra');
+  let hRAF = null, hStartTs = 0, hDone = false;
+  function hReset(){
+    if(hDone) return;
+    cancelAnimationFrame(hRAF); hRAF = null;
+    if(hFill) hFill.style.width = '0%';
+  }
+  function hTick(){
+    const k = Math.min(1, (performance.now() - hStartTs) / 3000);
+    if(hFill) hFill.style.width = (k * 100) + '%';
+    if(k >= 1 && !hDone){
+      hDone = true;
+      if(hBtn) hBtn.classList.add('done');
+      if(ultra) ultra.classList.remove('hidden');
+      if(window.burst) burst(26);
+      if(window.proektChime) window.proektChime(880, .5);
+      haptic(26);
+      return;
+    }
+    if(k < 1) hRAF = requestAnimationFrame(hTick);
+  }
+  if(hBtn){
+    const start = (e) => {
+      if(hDone) return;
+      if(e && e.cancelable) e.preventDefault();
+      hStartTs = performance.now();
+      cancelAnimationFrame(hRAF); hRAF = requestAnimationFrame(hTick);
+    };
+    hBtn.addEventListener('pointerdown', start);
+    hBtn.addEventListener('pointerup', hReset);
+    hBtn.addEventListener('pointercancel', hReset);
+    hBtn.addEventListener('pointerleave', hReset);
+    hBtn.addEventListener('touchstart', (e) => start(e), { passive: false });
+    hBtn.addEventListener('touchend', hReset);
+  }
+
+  /* --- конструктор вечера --- */
+  const NKEY = 'proekt_night';
+  const groups = Array.from(document.querySelectorAll('.bld-group'));
+  const bldOut = $('bldOut');
+  let night = {};
+  try{ night = JSON.parse(store.get(NKEY) || '{}') || {}; }catch(e){ night = {}; }
+
+  function renderNight(){
+    const order = ['где', 'темп', 'кто', 'финал'];
+    const ready = order.every((k) => night[k]);
+    groups.forEach((g) => {
+      const k = g.dataset.g;
+      g.querySelectorAll('.bld-chip').forEach((c) => c.classList.toggle('on', night[k] === c.textContent.trim()));
+    });
+    if(!bldOut) return;
+    if(!ready){
+      const filled = order.filter((k) => night[k]).length;
+      bldOut.textContent = filled === 0 ? 'Выбери по одному в каждом ряду — и я скажу, что будет.' : 'Выбрано ' + filled + ' из 4. Продолжай.';
+      return;
+    }
+    bldOut.innerHTML = '<b>Сегодня так:</b> ' + night['где'] + ', ' + night['темп'] + ', ведёт ' + night['кто'] +
+      ', финал — ' + night['финал'] + '. И да: я уже думаю об этом вместо работы.';
+  }
+  groups.forEach((g) => {
+    const k = g.dataset.g;
+    g.querySelectorAll('.bld-chip').forEach((c) => {
+      c.onclick = () => {
+        night[k] = c.textContent.trim();
+        store.set(NKEY, JSON.stringify(night));
+        renderNight();
+        if(window.proektChime) window.proektChime(659.25, .18);
+      };
+    });
+  });
+  renderNight();
+
+  const bldSend = $('bldSend');
+  if(bldSend) bldSend.onclick = () => {
+    const order = ['где', 'темп', 'кто', 'финал'];
+    if(!order.every((k) => night[k])){ flash('выбери все четыре'); return; }
+    const txt = 'Я собрала вечер на сайте: ' + night['где'] + ', ' + night['темп'] + ', ведёт ' + night['кто'] +
+      ', финал — ' + night['финал'] + '. Готовься.';
+    copyText(txt);
+    if(window.burst) burst(20);
+  };
+  const bldReset = $('bldReset');
+  if(bldReset) bldReset.onclick = () => {
+    night = {};
+    try{ localStorage.removeItem(NKEY); }catch(e){}
+    renderNight(); flash('сброшено');
+  };
 
   /* ---------- 3. ШЁПОТОМ: восемнадцать признаний ---------- */
   const WHISPER = [
