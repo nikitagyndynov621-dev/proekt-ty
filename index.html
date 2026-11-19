@@ -354,12 +354,18 @@ button:hover::after{transform:translateX(130%)}
 @keyframes liIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media(max-width:520px){.whisper-text{min-height:186px}.whisper-list li{font-size:15.5px;padding-left:38px}}
 
-/* ============ ПЛАВНЫЕ ПЕРЕХОДЫ ============ */
-.screen,.section{transition:opacity .46s cubic-bezier(.4,0,.2,1),transform .46s cubic-bezier(.4,0,.2,1),filter .46s}
-.screen.leaving,.section.leaving{opacity:0;transform:translateY(-18px) scale(.992);filter:blur(7px);pointer-events:none}
-.enter{animation:enterScreen .82s cubic-bezier(.22,.8,.24,1) both}
-@keyframes enterScreen{from{opacity:0;transform:translateY(30px) scale(.985);filter:blur(9px)}to{opacity:1;transform:none;filter:none}}
+/* ============ ПЕРЕХОДЫ · золотая вспышка и zoom-through ============ */
+.screen,.section{will-change:transform,opacity}
+.zoom-out{animation:zoomOut .3s cubic-bezier(.5,0,.85,.4) both;pointer-events:none}
+@keyframes zoomOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.11)}}
+.zoom-in{animation:zoomIn .74s cubic-bezier(.16,.86,.24,1) both}
+@keyframes zoomIn{from{opacity:0;transform:scale(.9) translateY(14px)}60%{opacity:1}to{opacity:1;transform:none}}
+.gold-flash{position:fixed;inset:0;z-index:145;pointer-events:none;
+  background:radial-gradient(circle at 50% 46%,#fff6e2 0%,#f6d994 7%,#ff9fbe 17%,rgba(255,174,197,0) 44%);
+  opacity:0;animation:goldFlash .5s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes goldFlash{0%{opacity:0;transform:scale(.86)}20%{opacity:.5}100%{opacity:0;transform:scale(1.16)}}
 .hot-grid .card{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1),border-color .3s ease,box-shadow .3s ease}
+@media(prefers-reduced-motion:reduce){.zoom-in,.zoom-out,.gold-flash{animation:none!important}}
 .whisper-stage{transition:box-shadow .5s ease,border-color .5s ease}
 .whisper-text{will-change:opacity}
 
@@ -368,7 +374,7 @@ button:hover::after{transform:translateX(130%)}
   background:radial-gradient(circle at 50% 46%,#1b1332f5,#06060ffa 72%);
   -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
   animation:cdIn .55s ease both;transition:opacity .6s ease,transform .6s ease}
-.countdown.out{opacity:0;transform:scale(1.05);transition-duration:.44s}
+.countdown.out{opacity:0;transform:scale(1.6);transition:opacity .34s ease-in,transform .34s ease-in;filter:blur(6px)}
 @keyframes cdIn{from{opacity:0}to{opacity:1}}
 .cd-halo{position:absolute;width:min(80vw,430px);aspect-ratio:1;border-radius:50%;
   background:radial-gradient(circle,#f6d99424,#ffaec50c 55%,transparent 72%);animation:haloPulse 2.6s ease-in-out infinite}
@@ -388,8 +394,6 @@ button:hover::after{transform:translateX(130%)}
 @media(prefers-reduced-motion:reduce){
   .cd-halo{animation:none}
   .cd-num.pop{animation:none}
-  .enter{animation:none}
-  .screen,.section{transition:none}
 }
 @media(prefers-reduced-motion:reduce){.decode{display:none}}
 </style></head>
@@ -1326,21 +1330,21 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     setTimeout(kill, 2600); // страховка
   }
 
-  /* ---------- 2. МУЗЫКА: чувственный луп на WebAudio, без единого файла ---------- */
-  let ac = null, master = null, bus = null, muted = store.get('proekt_muted') === '1';
+  /* ---------- 2. МУЗЫКА: ночной грув 92 BPM (WebAudio, без файлов) ---------- */
+  let ac = null, master = null, bus = null, verb = null, send = null, lpNode = null;
+  let noiseBuf = null, timer = null, nextBar = 0, barIdx = 0, muted = store.get('proekt_muted') === '1';
   const btnAudio = $('audioToggle');
   if(btnAudio && muted) btnAudio.classList.add('off');
 
-  const BPM = 70, BEAT = 60 / BPM, BAR = BEAT * 4;
-  const CHORDS = [
-    { root: 110.00, pad: [220.00, 261.63, 329.63, 415.30] }, // Am9
-    { root:  87.31, pad: [174.61, 220.00, 261.63, 349.23] }, // Fmaj7
-    { root: 130.81, pad: [261.63, 329.63, 392.00, 493.88] }, // Cmaj7
-    { root:  98.00, pad: [196.00, 246.94, 293.66, 392.00] }  // G6
+  const BPM = 92, S16 = (60 / BPM) / 4, SWING = S16 * 0.16;
+  /* Am9 → Fmaj7#11 → Dm9 → E7b9 — мажорной безмятежности тут нет */
+  const PROG = [
+    { root: 110.00, stab: [220.00, 261.63, 329.63, 415.30] },
+    { root:  87.31, stab: [174.61, 220.00, 293.66, 349.23] },
+    { root: 146.83, stab: [220.00, 293.66, 349.23, 440.00] },
+    { root:  82.41, stab: [196.00, 246.94, 311.13, 329.63] }
   ];
-  const MEL = [440.00, 523.25, 587.33, 659.25, 783.99, 880.00];
-
-  let noiseBuf = null, air = null, timer = null, nextBar = 0, barIdx = 0, lpNode = null;
+  const MOANS = [415.30, 440.00, 523.25, 349.23, 311.13, 466.16];
 
   function makeNoise(){
     if(noiseBuf) return noiseBuf;
@@ -1371,141 +1375,166 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
 
     master = ac.createGain(); master.gain.value = 0.95;
     const comp = ac.createDynamicsCompressor();
-    comp.threshold.value = -20; comp.knee.value = 26; comp.ratio.value = 3; comp.attack.value = .02; comp.release.value = .3;
+    comp.threshold.value = -16; comp.knee.value = 24; comp.ratio.value = 3.5;
+    comp.attack.value = .006; comp.release.value = .22;
     master.connect(comp); comp.connect(ac.destination);
 
-    const verb = ac.createConvolver(); verb.buffer = makeIR(3.4, 2.3);
-    const wet = ac.createGain(); wet.gain.value = 0.4;
+    verb = ac.createConvolver(); verb.buffer = makeIR(2.6, 2.6);
+    const wet = ac.createGain(); wet.gain.value = 0.3;
     verb.connect(wet); wet.connect(master);
 
     bus = ac.createGain(); bus.gain.value = 0.0001;
-    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 5400; lp.Q.value = .25;
-    lpNode = lp;
-    bus.connect(lp); lp.connect(master);
-    const send = ac.createGain(); send.gain.value = .6;
-    lp.connect(send); send.connect(verb);
+    lpNode = ac.createBiquadFilter(); lpNode.type = 'lowpass'; lpNode.frequency.value = 5800; lpNode.Q.value = .6;
+    bus.connect(lpNode); lpNode.connect(master);
+    send = ac.createGain(); send.gain.value = .55;
+    lpNode.connect(send); send.connect(verb);
 
     makeNoise();
     return ac;
   }
 
-  /* --- один голос «пад»: три расстроенные волны с вибрато --- */
-  function padVoice(freq, t, dur, vol){
-    const g = ac.createGain();
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.linearRampToValueAtTime(vol, t + Math.min(1.1, dur * .38));
-    g.gain.linearRampToValueAtTime(0.0001, t + dur);
-    g.connect(bus);
-    [['triangle', 1, 0, 1], ['sine', 2.002, 6, .35], ['triangle', .5, -7, .5]].forEach((v) => {
-      const o = ac.createOscillator();
-      o.type = v[0]; o.frequency.value = freq * v[1]; o.detune.value = v[2];
-      const og = ac.createGain(); og.gain.value = v[3];
-      const lfo = ac.createOscillator(); lfo.frequency.value = .17 + Math.random() * .1;
-      const lg = ac.createGain(); lg.gain.value = 2.2;
-      lfo.connect(lg); lg.connect(o.detune);
-      o.connect(og); og.connect(g);
-      o.start(t); o.stop(t + dur + .3);
-      lfo.start(t); lfo.stop(t + dur + .3);
-    });
-  }
-  function bassVoice(freq, t, dur, vol){
-    const o = ac.createOscillator(), g = ac.createGain(), f = ac.createBiquadFilter();
-    o.type = 'sine'; o.frequency.value = freq;
-    f.type = 'lowpass'; f.frequency.value = 320;
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(vol, t + .06);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); g.connect(f); f.connect(bus);
-    o.start(t); o.stop(t + dur + .05);
-  }
-  function heart(t, vol){ // «тук-тук» вместо барабана
+  /* ---- инструменты ---- */
+  function kick(t, v){
     const o = ac.createOscillator(), g = ac.createGain();
     o.type = 'sine';
-    o.frequency.setValueAtTime(122, t);
-    o.frequency.exponentialRampToValueAtTime(44, t + .17);
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(vol, t + .012);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + .34);
+    o.frequency.setValueAtTime(165, t);
+    o.frequency.exponentialRampToValueAtTime(47, t + .12);
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + .008);
+    g.gain.exponentialRampToValueAtTime(.0001, t + .3);
     o.connect(g); g.connect(bus);
-    o.start(t); o.stop(t + .4);
+    o.start(t); o.stop(t + .34);
   }
-  function brush(t, vol){
+  function clap(t, v){
     const src = ac.createBufferSource(); src.buffer = noiseBuf;
-    const hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 6200;
+    const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1750; bp.Q.value = .8;
     const g = ac.createGain();
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(vol, t + .01);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + .08);
-    src.connect(hp); hp.connect(g); g.connect(bus);
-    src.start(t); src.stop(t + .1);
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + .006);
+    g.gain.exponentialRampToValueAtTime(.0001, t + .17);
+    src.connect(bp); bp.connect(g); g.connect(bus); g.connect(send);
+    src.start(t); src.stop(t + .2);
   }
-  function leadVoice(freq, t, dur, vol){
-    const o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain();
-    o.type = 'triangle'; o2.type = 'sine';
-    o.frequency.value = freq; o2.frequency.value = freq * 2;
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.linearRampToValueAtTime(vol, t + .28);
-    g.gain.linearRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); o2.connect(g); g.connect(bus);
-    o.start(t); o.stop(t + dur + .1); o2.start(t); o2.stop(t + dur + .1);
+  function hat(t, v, open){
+    const src = ac.createBufferSource(); src.buffer = noiseBuf;
+    const hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 8200;
+    const g = ac.createGain();
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + .004);
+    g.gain.exponentialRampToValueAtTime(.0001, t + (open ? .2 : .045));
+    src.connect(hp); hp.connect(g); g.connect(bus);
+    src.start(t); src.stop(t + (open ? .24 : .06));
+  }
+  function bassV(t, f, dur, v){
+    const o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain(), lp2 = ac.createBiquadFilter();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(f * 1.6, t);
+    o.frequency.exponentialRampToValueAtTime(f, t + .1);
+    o2.type = 'triangle'; o2.frequency.value = f * 2; o2.detune.value = -7;
+    lp2.type = 'lowpass'; lp2.frequency.value = 430;
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + .02);
+    g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g); o2.connect(g); g.connect(lp2); lp2.connect(bus);
+    o.start(t); o2.start(t); o.stop(t + dur + .05); o2.stop(t + dur + .05);
+  }
+  function stabV(t, notes, dur, v){
+    notes.forEach((f) => {
+      const o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain();
+      o.type = 'triangle'; o2.type = 'sine';
+      o.frequency.value = f; o2.frequency.value = f * 2.008;
+      g.gain.setValueAtTime(.0001, t);
+      g.gain.linearRampToValueAtTime(v, t + .018);
+      g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+      o.connect(g); o2.connect(g); g.connect(bus); g.connect(send);
+      o.start(t); o2.start(t); o.stop(t + dur + .05); o2.stop(t + dur + .05);
+    });
+  }
+  /* «голос»: пила через две форманты, с глиссандо вниз — звучит как выдох у уха */
+  function moanV(t, f, dur, v){
+    const o = ac.createOscillator(); o.type = 'sawtooth';
+    o.frequency.setValueAtTime(f * 1.05, t);
+    o.frequency.exponentialRampToValueAtTime(f * .93, t + dur * .85);
+    const f1 = ac.createBiquadFilter(), f2 = ac.createBiquadFilter(), g = ac.createGain();
+    f1.type = 'bandpass'; f1.frequency.value = 700; f1.Q.value = 7;
+    f2.type = 'bandpass'; f2.frequency.value = 1220; f2.Q.value = 9;
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.linearRampToValueAtTime(v, t + dur * .32);
+    g.gain.linearRampToValueAtTime(.0001, t + dur);
+    o.connect(f1); o.connect(f2); f1.connect(g); f2.connect(g);
+    g.connect(bus); g.connect(send);
+    o.start(t); o.stop(t + dur + .05);
+  }
+  function breathV(t, dur, v){
+    const src = ac.createBufferSource(); src.buffer = noiseBuf;
+    const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 1.4;
+    bp.frequency.setValueAtTime(1500, t);
+    bp.frequency.exponentialRampToValueAtTime(620, t + dur);
+    const g = ac.createGain();
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.linearRampToValueAtTime(v, t + dur * .25);
+    g.gain.linearRampToValueAtTime(.0001, t + dur);
+    src.connect(bp); bp.connect(g); g.connect(bus); g.connect(send);
+    src.start(t); src.stop(t + dur + .05);
+  }
+  function riserV(t, v){
+    const src = ac.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
+    const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 2.6;
+    bp.frequency.setValueAtTime(340, t);
+    bp.frequency.exponentialRampToValueAtTime(7000, t + 1.7);
+    const g = ac.createGain();
+    g.gain.setValueAtTime(.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + 1.5);
+    g.gain.exponentialRampToValueAtTime(.0001, t + 1.8);
+    src.connect(bp); bp.connect(g); g.connect(bus); g.connect(send);
+    src.start(t); src.stop(t + 1.9);
   }
 
   function scheduleBar(t, idx){
-    const c = CHORDS[idx % CHORDS.length];
-    c.pad.forEach((f, k) => padVoice(f, t + k * .04, BAR * 1.02, .075));
-    bassVoice(c.root / 2, t + .02, BEAT * 2, .2);
-    bassVoice(c.root / 2, t + BEAT * 2.1, BEAT * 1.5, .15);
-    heart(t, .38); heart(t + BEAT * .42, .22);
-    heart(t + BEAT * 2, .3); heart(t + BEAT * 2.42, .18);
-    brush(t + BEAT * 1, .055); brush(t + BEAT * 3, .05);
-    brush(t + BEAT * 1.5, .025); brush(t + BEAT * 3.5, .025);
-    if(Math.random() < .78){
-      const note = MEL[(Math.random() * MEL.length) | 0];
-      leadVoice(note, t + BEAT * (1 + ((Math.random() * 3) | 0)), 1.7, .058);
-    }
-  }
-
-  function startAir(){
-    if(air || !ac) return;
-    const src = ac.createBufferSource(); src.buffer = noiseBuf; src.loop = true;
-    const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 780; bp.Q.value = 1.2;
-    const g = ac.createGain(); g.gain.value = .018;
-    const lfo = ac.createOscillator(); lfo.frequency.value = .09;
-    const lg = ac.createGain(); lg.gain.value = .012;
-    lfo.connect(lg); lg.connect(g.gain);
-    src.connect(bp); bp.connect(g); g.connect(bus);
-    src.start(); lfo.start();
-    air = { src: src, lfo: lfo, g: g };
+    const c = PROG[idx % PROG.length];
+    const A = (step) => t + step * S16 + ((step % 2) ? SWING : 0);
+    [0, 6, 10].forEach((st) => kick(A(st), .52));
+    [4, 12].forEach((st) => clap(A(st), .24));
+    for(let st = 0; st < 16; st += 2) hat(A(st), st % 4 === 0 ? .03 : .019, false);
+    hat(A(14), .034, true);
+    hat(A(15), .018, false);
+    [0, 3, 6, 10, 13].forEach((st) => {
+      const oct = (st === 3 || st === 13) ? 2 : 1;
+      bassV(A(st), (c.root / 2) * oct, S16 * 2.3, .27);
+    });
+    [4, 7, 12, 15].forEach((st) => stabV(A(st), c.stab, st === 7 ? .16 : .1, .05));
+    if(idx % 2 === 1) moanV(A(9), MOANS[(idx >> 1) % MOANS.length], .9, .055);
+    breathV(A(2), .9, .045);
+    if(idx % 4 === 3) riserV(A(8), .05);
   }
 
   function startMusic(){
     if(muted) return;
     if(!initAudio() || !ac) return;
     if(ac.state === 'suspended') ac.resume();
-    startAir();
     bus.gain.cancelScheduledValues(ac.currentTime);
     bus.gain.setValueAtTime(Math.max(bus.gain.value, 0.0001), ac.currentTime);
-    bus.gain.exponentialRampToValueAtTime(0.72, ac.currentTime + 5);
+    bus.gain.exponentialRampToValueAtTime(0.78, ac.currentTime + 2.6);
     if(lpNode){
       lpNode.frequency.cancelScheduledValues(ac.currentTime);
-      lpNode.frequency.setValueAtTime(520, ac.currentTime);
-      lpNode.frequency.exponentialRampToValueAtTime(5400, ac.currentTime + 6.5);
+      lpNode.frequency.setValueAtTime(700, ac.currentTime);
+      lpNode.frequency.exponentialRampToValueAtTime(5800, ac.currentTime + 3.4);
     }
     if(timer) return;
-    nextBar = ac.currentTime + .12;
+    nextBar = ac.currentTime + .1;
     timer = setInterval(() => {
       if(!ac) return;
       while(nextBar < ac.currentTime + .7){
         scheduleBar(nextBar, barIdx++);
-        nextBar += BAR;
+        nextBar += S16 * 16;
       }
-    }, 240);
+    }, 220);
   }
   function stopMusic(){
     if(!ac || !bus) return;
     bus.gain.cancelScheduledValues(ac.currentTime);
     bus.gain.setValueAtTime(Math.max(bus.gain.value, 0.0001), ac.currentTime);
-    bus.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 1.4);
+    bus.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 1.1);
     clearInterval(timer); timer = null;
   }
 
@@ -1516,7 +1545,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     const o = ac.createOscillator(), g = ac.createGain();
     o.type = type || 'sine'; o.frequency.value = freq;
     g.gain.setValueAtTime(0.0001, ac.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.13, ac.currentTime + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.12, ac.currentTime + 0.012);
     g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + (dur || .5));
     o.connect(g); g.connect(master);
     o.start(); o.stop(ac.currentTime + (dur || .5) + .05);
@@ -1534,14 +1563,12 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     };
   }
 
-  // пауза музыки, когда вкладка уходит в фон
   document.addEventListener('visibilitychange', () => {
     if(!ac) return;
     if(document.hidden){ if(ac.state === 'running') ac.suspend(); }
     else if(!muted && timer){ if(ac.state === 'suspended') ac.resume(); }
   });
 
-  // тихие клики по интерфейсу
   const SCALE = [523.25, 587.33, 659.25, 783.99, 880, 1046.5];
   let lastTick = 0;
   document.addEventListener('click', (e) => {
@@ -1554,8 +1581,16 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     haptic(6);
   }, true);
 
-  /* ---------- 2b. ТАЙМЕР СТАРТА + ПЛАВНЫЕ ПЕРЕХОДЫ ---------- */
+  /* ---------- 2b. ТАЙМЕР СТАРТА + ПЕРЕХОДЫ ---------- */
   const RM = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches);
+
+  function goldFlash(){
+    if(RM) return;
+    const f = document.createElement('div');
+    f.className = 'gold-flash';
+    document.body.appendChild(f);
+    setTimeout(() => { try{ f.remove() }catch(e){} }, 720);
+  }
 
   function swap(fromEl, toEl, done){
     if(!fromEl || !toEl) return;
@@ -1563,16 +1598,17 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
       fromEl.classList.add('hidden'); toEl.classList.remove('hidden');
       done && done(); return;
     }
-    fromEl.classList.add('leaving');
+    goldFlash();
+    fromEl.classList.add('zoom-out');
     setTimeout(() => {
       fromEl.classList.add('hidden');
-      fromEl.classList.remove('leaving');
+      fromEl.classList.remove('zoom-out');
       toEl.classList.remove('hidden');
-      toEl.classList.remove('enter'); void toEl.offsetWidth; toEl.classList.add('enter');
-      setTimeout(() => toEl.classList.remove('enter'), 900);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      toEl.classList.remove('zoom-in'); void toEl.offsetWidth; toEl.classList.add('zoom-in');
+      setTimeout(() => toEl.classList.remove('zoom-in'), 800);
+      window.scrollTo({ top: 0, behavior: 'auto' });
       done && done();
-    }, 460);
+    }, 290);
   }
   window.proektSwap = swap;
 
@@ -1594,17 +1630,18 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
       num.textContent = SEQ[i];
       num.classList.remove('pop'); void num.offsetWidth; num.classList.add('pop');
       fg.style.animation = 'none'; void fg.getBoundingClientRect();
-      fg.style.animation = 'cdRing ' + (last ? 860 : 700) + 'ms linear forwards';
-      chime(last ? 1046.5 : 392 * Math.pow(1.26, i), .62);
+      fg.style.animation = 'cdRing ' + (last ? 760 : 640) + 'ms linear forwards';
+      chime(last ? 1046.5 : 392 * Math.pow(1.26, i), .5);
       haptic(last ? 26 : 9);
       if(last && window.burst) burst(22);
       i++;
-      if(i < SEQ.length) setTimeout(tick, 700);
+      if(i < SEQ.length) setTimeout(tick, 640);
       else setTimeout(() => {
+        goldFlash();
         ov.classList.add('out');
         done && done();
-        setTimeout(() => { try{ ov.remove() }catch(e){} }, 520);
-      }, 860);
+        setTimeout(() => { try{ ov.remove() }catch(e){} }, 400);
+      }, 760);
     };
     tick();
   }
