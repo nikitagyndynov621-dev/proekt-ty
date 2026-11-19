@@ -479,6 +479,19 @@ button:hover::after{transform:translateX(130%)}
   letter-spacing:.3em!important;text-transform:uppercase}
 .sess-end{font-family:Georgia,serif;font-style:italic;font-size:clamp(19px,5vw,26px);line-height:1.5;color:#fff0f4}
 @media(prefers-reduced-motion:reduce){.sess-ring,.sess-ring-fill{animation:none}}
+
+/* ============ СЕАНС 2.0 · фазы, «можно / не двигайся» ============ */
+.sess-phase{font:9px Arial,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:#c9768f;margin:-6px 0 18px}
+.sess-big{position:relative;font-family:Georgia,serif;font-size:clamp(15px,3.6vw,19px);letter-spacing:.34em;
+  text-transform:uppercase;color:#e8c4cf;transition:color .3s ease,transform .3s ease}
+.sess-big.go{color:#ffd9a8;text-shadow:0 0 30px #f6d99477}
+.sess-big.no{color:#ff8fa8;text-shadow:0 0 30px #ff6f9a88}
+.session.edge{background:radial-gradient(circle at 50% 40%,#3a0d22fa,#08050dfd 70%)}
+.session.edge .sess-ring{border-color:#ff6f9a77}
+.session.final{background:radial-gradient(circle at 50% 40%,#4a0c22fd,#0a040bfe 68%)}
+.session.final .sess-ring{animation-duration:5s;box-shadow:0 0 60px #ff6f9a33}
+.session.final .sess-step{color:#ffe4ea}
+.sess-bonus{font:10px Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#f6d994;margin:0 0 16px}
 @media(prefers-reduced-motion:reduce){.decode{display:none}}
 </style></head>
 <body>
@@ -486,14 +499,16 @@ button:hover::after{transform:translateX(130%)}
   <div class="sess-inner">
     <div class="sess-top">
       <span class="sess-word">стоп-слово: дом</span>
-      <span class="sess-left" id="sessLeft">05:36</span>
+      <span class="sess-left" id="sessLeft">09:20</span>
     </div>
+    <div class="sess-phase" id="sessPhase">фаза 1 · разогрев</div>
     <div class="sess-ring-wrap">
       <div class="sess-ring"><i class="sess-ring-fill"></i></div>
-      <div class="sess-breath">дыши</div>
+      <div class="sess-big" id="sessBig">можно</div>
     </div>
     <p class="sess-step" id="sessStep">…</p>
     <div class="sess-dots" id="sessDots"></div>
+    <div class="sess-bonus hidden" id="sessBonus">а теперь открой последний протокол — там то, что я не сказал вслух</div>
     <button class="sess-stop" id="sessStop">стоп</button>
   </div>
 </div>
@@ -757,8 +772,8 @@ button:hover::after{transform:translateX(130%)}
 
   <div class="sess-invite">
     <div class="hold-label">дальше — не читать. дальше — делать</div>
-    <p class="sess-lead">Пять минут со мной в наушниках. Я говорю — ты делаешь. Одна кнопка «стоп» на всякий случай, и стоп-слово «дом» работает всё время.</p>
-    <button class="btn-sm" id="sessStart">Начать сеанс</button>
+    <p class="sess-lead">Девять минут в три фазы: сначала разогрев, потом «на грани» — где я то разрешаю, то запрещаю, и только в конце всё. Я говорю — ты делаешь. Кнопка «стоп» и слово «дом» работают всё время.</p>
+    <button class="btn-sm" id="sessStart">Начать сеанс · 9 минут</button>
   </div>
 </div>
 
@@ -1825,85 +1840,151 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     renderNight(); flash('сброшено');
   };
 
-  /* ---------- 2d. СЕАНС: пять минут, голосом в голове ---------- */
+  /* ---------- 2d. СЕАНС «РАСТЕКЛАСЬ»: три фазы, десять минут, дыхание в такт ---------- */
   const SESSION = [
-    { d: 22, v: 30, t: 'Сядь или ляг так, чтобы никто не мог войти. Наушники — если есть. Дальше я говорю, что делать, и ты просто делаешь. Стоп-слово «дом» работает всё время.' },
-    { d: 28, v: 18, t: 'Дыши со мной. Вдох на четыре счёта… задержка… выдох на шесть. Круг растёт и сжимается — просто следуй за ним и ни о чём не думай.' },
-    { d: 26, v: 24, t: 'Закрой глаза. Положи ладонь на шею — просто положи, не двигай. Почувствуй, какая горячая кожа под пальцами. Это из-за меня.' },
-    { d: 28, v: 24, t: 'Веди ладонь медленно вниз: по ключице, к груди. Остановись там, где бьётся быстрее, чем должно. И не убирай руку.' },
-    { d: 30, v: 30, t: 'Ниже. Через живот, к бёдрам — и обратно. В три раза медленнее, чем хочется. Я хочу, чтобы ты изнылась от этой медленности.' },
-    { d: 30, v: 30, t: 'Одной рукой — по внутренней стороне бедра, гладь, не спеши. Вторую положи себе на горло и слегка надави.' },
-    { d: 24, v: [40, 60, 40], t: 'Не смей трогать себя там, где уже пульсирует. Ещё пятнадцать секунд — только рядом. Терпи. Это моё условие.' },
-    { d: 36, v: [30, 40, 30, 40], t: '…Можно. Медленно, как будто у тебя весь вечер впереди. Это не твоя рука — моя. И я никуда не спешу.' },
-    { d: 30, v: 34, t: 'Вспомни, как я держу тебя за волосы и заставляю смотреть мне в глаза. Не останавливайся. И не смей зажмуриваться.' },
-    { d: 30, v: [26, 26, 26], t: 'А теперь быстрее — настолько, насколько сможешь. Не сдерживай ни голос, ни дыхание. Мне нужно слышать, как ты сдаёшься.' },
-    { d: 26, v: 30, t: 'Ещё немного. Скажи моё имя. Вслух, не шёпотом — я хочу, чтобы это было слышно.' },
-    { d: 18, v: [60, 80, 60], t: 'И вот теперь — можно. Всё, что было эти пять минут, — только разминка перед тем вечером, который я тебе устрою.' }
+    { d: 30, ph: 0, br: 10, v: 30, mode: 'go',
+      t: 'Сядь или ляг так, чтобы никто не мог войти. Наушники — если есть. Дальше я говорю, что делать, и ты просто делаешь. Стоп-слово «дом» работает всё время.' },
+    { d: 30, ph: 0, br: 10, v: 18, mode: 'breathe',
+      t: 'Дыши со мной. Вдох на четыре… задержка… выдох на шесть. Круг растёт и сжимается — следуй за ним и ни о чём не думай.' },
+    { d: 30, ph: 0, br: 10, v: 22, mode: 'go',
+      t: 'Закрой глаза. Положи ладонь на шею — просто положи, не двигай. Почувствуй, какая горячая кожа. Это из-за меня.' },
+    { d: 34, ph: 0, br: 10, v: 22, mode: 'go',
+      t: 'Веди ладонь медленно вниз: ключица, грудь. Остановись там, где бьётся быстрее, чем должно. И не убирай руку.' },
+    { d: 34, ph: 0, br: 10, v: 26, mode: 'go',
+      t: 'Ниже: через живот, к бёдрам — и обратно. В три раза медленнее, чем хочется. Я хочу, чтобы ты изнылась от этой медленности.' },
+    { d: 34, ph: 0, br: 10, v: 26, mode: 'go',
+      t: 'По внутренней стороне бедра — гладь, не спеши. Вторую руку положи себе на горло и слегка надави.' },
+
+    { d: 38, ph: 1, br: 7, v: [40, 60, 40], mode: 'hold',
+      t: 'Всё. Руки убрала. Не смей трогать себя там, где уже пульсирует. Только рядом. Терпи — это моё условие.' },
+    { d: 38, ph: 1, br: 7, v: [30, 40, 30], mode: 'go',
+      t: '…Можно. Медленно, как будто у тебя весь вечер впереди. Это не твоя рука — моя. И я никуда не спешу.' },
+    { d: 34, ph: 1, br: 7, v: 44, mode: 'hold',
+      t: 'Стоп. Убрала. Не двигайся и не сжимай ноги. Дыши. Я решаю, когда тебе можно.' },
+    { d: 38, ph: 1, br: 7, v: [34, 34], mode: 'go',
+      t: 'Теперь можно. И запомни: останавливаться, когда почти — это тоже часть того, что я с тобой делаю.' },
+    { d: 38, ph: 1, br: 7, v: [26, 26, 26], mode: 'hold',
+      t: 'Ближе к краю — и замри. Не переходи. Я хочу, чтобы ты узнала, как это — быть на самом краю и ждать меня.' },
+    { d: 34, ph: 1, br: 7, v: 40, mode: 'go',
+      t: 'Ещё десять секунд терпи. Осталось пять. Хорошо. Теперь медленно продолжай — и не смей ускорять.' },
+
+    { d: 40, ph: 2, br: 5, v: [40, 50, 40], mode: 'go',
+      t: 'Всё, что было до этого, — разминка. Теперь делай так, как хочется тебе. Я хочу слышать, что тебе хочется.' },
+    { d: 40, ph: 2, br: 5, v: [30, 30, 30, 30], mode: 'go',
+      t: 'Быстрее — настолько, насколько сможешь. Не сдерживай ни голос, ни дыхание. Пусть будет слышно.' },
+    { d: 34, ph: 2, br: 5, v: 36, mode: 'go',
+      t: 'Скажи моё имя. Вслух, не шёпотом. И не останавливайся, когда скажешь.' },
+    { d: 30, ph: 2, br: 5, v: [60, 50, 60], mode: 'go',
+      t: 'Ещё немного. Ты уже почти — я это слышу по дыханию. Не смей отодвигаться и не смей зажмуриваться.' },
+    { d: 26, ph: 2, br: 5, v: [70, 60, 90], mode: 'go',
+      t: 'И вот теперь — можно. Всё, что ты сдерживала, отпускай. Я хочу, чтобы ты растеклась прямо сейчас.' }
   ];
-  const sessEl = $('session'), sessStep = $('sessStep'), sessLeft = $('sessLeft'), sessDots = $('sessDots');
-  const sessStart = $('sessStart'), sessStop = $('sessStop');
-  let sIdx = -1, sTimer = null, sElapsed = 0, sTotal = SESSION.reduce((a, b) => a + b.d, 0);
+  const PHASES = ['разогрев', 'на грани', 'финал'];
+  const BIG = { hold: 'не двигайся', go: 'можно', breathe: 'дыши' };
+
+  const sessEl = $('session'), sessStep = $('sessStep'), sessLeft = $('sessLeft'),
+        sessDots = $('sessDots'), sessBig = $('sessBig'), sessPhase = $('sessPhase'),
+        sessRing = document.querySelector('.sess-ring'), sessGlow = document.querySelector('.sess-ring-fill'),
+        sessStart = $('sessStart'), sessStop = $('sessStop'), sessBonus = $('sessBonus');
+  let sIdx = -1, sTimer = null, sElapsed = 0, sPulse = null, sBreathT = null;
+  const sTotal = SESSION.reduce((a, b) => a + b.d, 0);
 
   const fmt = (sec) => {
     sec = Math.max(0, Math.round(sec));
     return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
   };
+  const vib = (p) => { if(p && navigator.vibrate) try{ navigator.vibrate(p) }catch(e){} };
+
+  function startBreath(sec){
+    if(sessRing) sessRing.style.animationDuration = sec + 's';
+    if(sessGlow) sessGlow.style.animationDuration = sec + 's';
+    clearInterval(sBreathT);
+    let inhale = true;
+    if(sessBig && !sessBig.dataset.lock){ sessBig.textContent = BIG.breathe; }
+    sBreathT = setInterval(() => {
+      if(!sessBig || sessBig.dataset.lock) return;
+      inhale = !inhale;
+      sessBig.textContent = inhale ? 'вдох' : 'выдох';
+    }, sec * 400);
+  }
 
   function sessShowStep(i){
     if(!sessStep || i === sIdx) return;
+    const first = sIdx < 0;
     sIdx = i;
     const stp = SESSION[i];
+
+    if(sessPhase) sessPhase.textContent = 'фаза ' + (stp.ph + 1) + ' · ' + PHASES[stp.ph];
+    if(sessEl) sessEl.classList.toggle('edge', stp.ph >= 1);
+    if(sessEl) sessEl.classList.toggle('final', stp.ph === 2);
+
+    if(sessBig){
+      sessBig.dataset.lock = stp.mode === 'breathe' ? '' : '1';
+      sessBig.textContent = BIG[stp.mode] || '';
+      sessBig.classList.toggle('go', stp.mode === 'go');
+      sessBig.classList.toggle('no', stp.mode === 'hold');
+    }
+    startBreath(stp.br);
+
     sessStep.classList.add('hide');
     setTimeout(() => {
       sessStep.textContent = stp.t;
       sessStep.classList.remove('hide');
-    }, 380);
-    if(sessDots){
-      Array.from(sessDots.children).forEach((d, k) => d.classList.toggle('on', k <= i));
-    }
-    if(stp.v && navigator.vibrate) try{ navigator.vibrate(stp.v) }catch(e){}
-    if(window.proektChime) window.proektChime(392 * Math.pow(1.12, i % 6), .35);
-  }
+    }, first ? 60 : 360);
 
-  function sessFinish(){
-    clearInterval(sTimer); sTimer = null;
-    if(sessStep){
-      sessStep.classList.add('hide');
-      setTimeout(() => {
-        sessStep.innerHTML = '<span class="sess-end">Сеанс окончен.<br>Теперь оденься, приведи себя в порядок — и напиши мне, что ты чувствуешь.<br>Я хочу знать всё.</span>';
-        sessStep.classList.remove('hide');
-      }, 400);
+    if(sessDots) Array.from(sessDots.children).forEach((d, k) => d.classList.toggle('on', k <= i));
+
+    vib(stp.v);
+    if(window.proektChime) window.proektChime(stp.mode === 'hold' ? 261.63 : 392 * Math.pow(1.12, i % 6), .32);
+
+    /* вибро-пульс в такт в жарких фазах */
+    clearInterval(sPulse); sPulse = null;
+    if(stp.ph >= 1 && navigator.vibrate){
+      const beat = stp.ph === 2 ? 380 : 520;
+      sPulse = setInterval(() => { vib(stp.ph === 2 ? [18, 120, 18] : [24]); }, beat);
     }
-    if(sessLeft) sessLeft.textContent = '00:00';
-    if(navigator.vibrate) try{ navigator.vibrate([80, 60, 120]) }catch(e){}
-    if(window.burst) burst(40);
-    if(window.proektChime) window.proektChime(1046.5, .8);
-    try{ store.set('proekt_session', String(Date.now())) }catch(e){}
-    setTimeout(() => { if(sessEl && !sessEl.classList.contains('hidden')) sessClose('Хорошо. Теперь — напиши мне.'); }, 12000);
   }
 
   function sessTick(){
     sElapsed += 0.25;
-    const left = sTotal - sElapsed;
-    if(sessLeft) sessLeft.textContent = fmt(left);
+    if(sessLeft) sessLeft.textContent = fmt(sTotal - sElapsed);
     let acc = 0, idx = SESSION.length - 1;
     for(let i = 0; i < SESSION.length; i++){
       acc += SESSION[i].d;
       if(sElapsed < acc){ idx = i; break; }
     }
     sessShowStep(idx);
-    if(left <= 0) sessFinish();
+    if(sTotal - sElapsed <= 0) sessFinish();
+  }
+
+  function sessFinish(){
+    clearInterval(sTimer); sTimer = null;
+    clearInterval(sPulse); sPulse = null;
+    clearInterval(sBreathT); sBreathT = null;
+    if(sessBig){ sessBig.dataset.lock = '1'; sessBig.textContent = '✧'; sessBig.classList.add('go'); }
+    if(sessStep){
+      sessStep.classList.add('hide');
+      setTimeout(() => {
+        sessStep.innerHTML = '<span class="sess-end">Всё. Можешь открыть глаза.<br>Теперь оденься, приведи себя в порядок — и напиши мне, что ты чувствуешь.<br>Подробно. Я хочу знать каждую деталь.</span>';
+        sessStep.classList.remove('hide');
+      }, 420);
+    }
+    if(sessLeft) sessLeft.textContent = '00:00';
+    vib([80, 60, 120, 60, 160]);
+    if(window.burst) burst(46);
+    if(window.proektChime) window.proektChime(1046.5, .9);
+    try{ store.set('proekt_session', String(Date.now())) }catch(e){}
+    if(sessBonus) sessBonus.classList.remove('hidden');
+    setTimeout(() => { if(sessEl && !sessEl.classList.contains('hidden')) sessClose('Хорошо. Теперь — напиши мне.'); }, 14000);
   }
 
   function sessOpen(){
     if(!sessEl) return;
     sIdx = -1; sElapsed = 0;
-    sessEl.classList.remove('hidden', 'closing');
+    sessEl.classList.remove('hidden', 'closing', 'edge', 'final');
     sessEl.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    if(sessDots){
-      sessDots.innerHTML = SESSION.map(() => '<i></i>').join('');
-    }
+    if(sessDots) sessDots.innerHTML = SESSION.map(() => '<i></i>').join('');
     if(sessStep){ sessStep.classList.remove('hide'); sessStep.textContent = ''; }
     if(sessLeft) sessLeft.textContent = fmt(sTotal);
     sessShowStep(0);
@@ -1914,8 +1995,10 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
   function sessClose(msg){
     if(!sessEl) return;
     clearInterval(sTimer); sTimer = null;
+    clearInterval(sPulse); sPulse = null;
+    clearInterval(sBreathT); sBreathT = null;
+    vib(0);
     sessEl.classList.add('closing');
-    if(navigator.vibrate) try{ navigator.vibrate(0) }catch(e){}
     setTimeout(() => {
       sessEl.classList.add('hidden');
       sessEl.classList.remove('closing');
@@ -1924,7 +2007,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     }, 460);
     if(msg) flash(msg);
   }
-  window.proektSession = { open: sessOpen, close: sessClose, total: sTotal };
+  window.proektSession = { open: sessOpen, close: sessClose, total: sTotal, jump: (n) => { sElapsed = SESSION.slice(0, n).reduce((a, b) => a + b.d, 0); sessShowStep(n); } };
 
   if(sessStart) sessStart.onclick = sessOpen;
   if(sessStop) sessStop.onclick = () => sessClose('Хорошо. Я рядом.');
