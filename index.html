@@ -312,34 +312,6 @@ button:hover::after{transform:translateX(130%)}
 @media(max-width:600px){.audio-toggle{bottom:calc(16px + env(safe-area-inset-bottom,0px));right:15px;width:34px;height:34px;font-size:13px!important}}
 
 /* ============ ЛИЧНЫЕ ЭКСПОНАТЫ ============ */
-.personal-zone{margin:44px auto 8px;max-width:820px;animation:in .8s both}
-.album-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-.photo-slot{position:relative;aspect-ratio:3/4;border:1px solid #f6d99444;border-radius:2px;overflow:hidden;
-  background:linear-gradient(165deg,#1a1428,#0f0c1a);cursor:pointer;transition:.3s;display:grid;place-items:center}
-.photo-slot:hover{border-color:#f6d99499;transform:translateY(-3px)}
-.photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
-.photo-slot .ph{display:flex;flex-direction:column;align-items:center;gap:8px;color:#8b84a8;font:8.5px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;text-align:center;padding:10px}
-.photo-slot .ph b{font-size:22px;color:#f6d99480;font-weight:400;line-height:1}
-.photo-slot::after{content:"";position:absolute;inset:6px;border:1px solid #f6d9942e;pointer-events:none}
-.photo-slot.filled::after{border-color:#f6d99455}
-.album-hint{text-align:center;color:#8b84a8;font:11px Arial,sans-serif;letter-spacing:.06em;margin:12px 0 0;line-height:1.6}
-@media(max-width:520px){.album-grid{gap:9px}}
-
-.together-card{margin-top:22px}
-.together-card::before{content:none!important}
-.together-card .row{flex-direction:column;align-items:stretch;gap:10px;margin-top:16px}
-.together-card .dt{width:100%;min-width:0;padding:12px 14px;font-size:16px}
-.together-card #togetherSave{width:100%;padding:12px 16px}
-#togetherHint:empty{display:none}
-@media(min-width:560px){
-  .together-card .row{flex-direction:row;align-items:center}
-  .together-card .dt{flex:1 1 auto}
-  .together-card #togetherSave{width:auto;flex:0 0 auto}
-}
-.together-big{font-family:Georgia,serif;font-size:clamp(30px,8vw,52px);line-height:1.1;color:var(--gold);
-  letter-spacing:.02em;text-shadow:0 0 34px #f6d99444;font-variant-numeric:tabular-nums;margin:6px 0 12px}
-.together-big small{display:block;font:9px Arial,sans-serif;letter-spacing:.28em;color:#8b84a8;text-transform:uppercase;margin-top:9px;text-shadow:none}
-
 /* ============ ФИНАЛ ============ */
 .finale-card{position:relative;margin:56px auto 10px;padding:44px 22px 40px;max-width:720px;text-align:center;
   border:1px solid #f6d99444;border-radius:2px;background:linear-gradient(170deg,#ffffff06,#00000000);
@@ -359,6 +331,28 @@ button:hover::after{transform:translateX(130%)}
   .finale-card{padding:34px 16px 30px;margin-top:40px}
   .finale-stamp{width:74px;height:74px;font-size:6.5px;right:8px;bottom:8px}
 }
+
+/* ============ ШЁПОТОМ · восемнадцать признаний ============ */
+.whisper{margin:54px auto 10px;max-width:780px;text-align:center}
+.whisper-lead{max-width:600px;margin:16px auto 0;color:#b9b5cb;font-size:15px;line-height:1.75}
+.whisper-stage{position:relative;margin:24px auto 0;padding:30px 20px 24px;border:1px solid #ffaec53d;border-radius:2px;
+  background:linear-gradient(165deg,#ff6f9a10,#b7a5ff08,#00000000);box-shadow:0 34px 100px #00000066,inset 0 1px 0 #ffffff14}
+.whisper-stage::before,.whisper-stage::after{content:"";position:absolute;width:34px;height:34px;border:1px solid #ffaec54d}
+.whisper-stage::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.whisper-stage::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.whisper-num{font:9px Arial,sans-serif;letter-spacing:.34em;color:#c9768f;text-transform:uppercase;margin-bottom:18px}
+.whisper-text{margin:0;font-family:Georgia,serif;font-style:italic;font-size:clamp(18px,4.5vw,25px);line-height:1.55;
+  color:#fff0f4;min-height:150px;transition:opacity .2s ease;text-shadow:0 0 40px #ffaec522}
+.whisper-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.whisper-list{margin-top:34px;text-align:left}
+.whisper-list-head{text-align:center;font:9px Arial,sans-serif;letter-spacing:.3em;color:#8b84a8;text-transform:uppercase;margin-bottom:20px}
+.whisper-list ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.whisper-list li{position:relative;padding:15px 6px 15px 44px;font-size:16.5px;line-height:1.62;color:#ffeaf0;
+  border-bottom:1px solid #ffffff0d}
+.whisper-list li:last-child{border-bottom:0}
+.whisper-list .w-num{position:absolute;left:2px;top:17px;font:9px Arial,sans-serif;letter-spacing:.14em;color:#b0556f}
+.whisper-final{margin:22px auto 0;max-width:560px;text-align:center;font-style:italic;color:#d9a2b3;font-size:16px;line-height:1.7}
+@media(max-width:520px){.whisper-text{min-height:186px}.whisper-list li{font-size:15.5px;padding-left:38px}}
 @media(prefers-reduced-motion:reduce){.decode{display:none}}
 </style></head>
 <body>
@@ -411,34 +405,13 @@ button:hover::after{transform:translateX(130%)}
 <section class="section hidden" id="reveal"><div class="micro">доступ подтверждён · протокол ✧ вскрыт</div><div class="seal">✧ ♡ ✧</div><h2 class="orn-title">Вот оно, моё главное сокровище</h2>
 <div class="orn-rule"><i></i><em>✦</em><i></i></div><div class="letterbox"><div class="stamp">совершенно<br>секретно<br>✧</div><h3>Для тебя</h3><p>Я мог бы написать здесь целую вселенную красивых слов. Но скажу самое главное: мне невероятно повезло встретить тебя. Спасибо за твой свет, за смех и за то, что рядом с тобой даже простые моменты становятся теми, которые хочется помнить. Я выбираю тебя — не по звёздам, а всем сердцем. ♡</p></div><button id="secretButton" class="secondary">Снять цензуру · дальше очень пошло · 18+</button><div class="spicy hidden" id="spicy" aria-live="polite">Я люблю тебя до безумия. А теперь — без красивых оправданий: <b>чёрт, как же я тебя хочу.</b> Хочу сорвать с тебя одежду, целовать жадно и долго, прижать к себе и покрывать поцелуями, пока у нас обоих не собьётся дыхание. Хочу шептать тебе на ухо всё, о чём приличные люди обычно молчат, и чувствовать, как между нами исчезает последнее расстояние. Ты заводишь меня одним взглядом. Если ты тоже этого хочешь — давай однажды закроем дверь, выключим телефоны и оставим весь мир за порогом. ♡</div>
 
-  <div class="personal-zone">
-    <div class="micro" style="display:block;text-align:center;margin-bottom:4px">личные экспонаты дела</div>
-    <h2 class="orn-title" style="display:block;text-align:center">Наши кадры и наш счёт</h2>
-    <div class="orn-rule"><i></i><em>❦</em><i></i></div>
-
-    <div class="album-grid" id="albumGrid"></div>
-    <p class="album-hint">Нажми на рамку и выбери фото с телефона — оно останется в этом досье навсегда.</p>
-
-    <div class="card together-card">
-      <span class="micro">хронометр · с первого дня</span>
-      <h4>Мы вместе</h4>
-      <p class="hint">Поставь дату, когда всё началось. Дальше считаю я.</p>
-      <div class="together-big" id="togetherBig">—<small>дата не задана</small></div>
-      <div class="row">
-        <input type="datetime-local" class="dt" id="togetherAt" />
-        <button class="ghost-sm" id="togetherSave">Запомнить</button>
-      </div>
-      <p class="heat-text" id="togetherHint" style="margin-top:12px"></p>
-    </div>
-  </div>
-
   <div class="hot-archive" id="hotArchive">
     <div class="hot-head">
       <div class="micro">архив без цензуры · только для тебя</div>
       <h2 class="orn-title">Горячий архив</h2>
       <div class="orn-rule"><i></i><em>🔞</em><i></i></div>
       <div class="classify">классификация: совершенно секретно · 18+</div>
-      <p class="hot-sub">Девять протоколов, которые я собрал специально, чтобы ты краснела. Открывай по одному — счётчик внизу покажет, сколько ты уже распаковала.</p>
+      <p class="hot-sub">Девять протоколов и восемнадцать признаний шёпотом — всё, что я собирал специально, чтобы ты краснела. Открывай по одному: счётчик внизу покажет, сколько ты уже распаковала.</p>
       <div class="unpack">
         <div class="unpack-bar"><div class="unpack-fill" id="unpackFill"></div></div>
         <div class="unpack-lbl">распаковано: <span id="unpackNum">0</span> / 18</div>
@@ -577,6 +550,47 @@ button:hover::after{transform:translateX(130%)}
     </div>
   </div>
 
+<div class="whisper rv" id="whisper">
+  <div class="micro" style="display:block;text-align:center">протокол 10 · только шёпотом</div>
+  <h2 class="orn-title" style="display:block;text-align:center">То, что вслух не говорят</h2>
+  <div class="orn-rule"><i></i><em>✧</em><i></i></div>
+  <p class="whisper-lead">Восемнадцать признаний, которые я произношу только тебе — в шею, в темноте, когда рядом никого нет. По одному, чтобы ты успевала краснеть.</p>
+
+  <div class="whisper-stage">
+    <div class="whisper-num" id="whisperNum">01 / 18</div>
+    <p class="whisper-text" id="whisperText">Нажми «дальше» — и я начну говорить тихо.</p>
+    <div class="whisper-actions">
+      <button class="btn-sm" id="whisperNext">Дальше →</button>
+      <button class="ghost-sm" id="whisperAll">Показать сразу все</button>
+    </div>
+  </div>
+
+  <div class="whisper-list hidden" id="whisperList">
+    <div class="whisper-list-head">и это только то, что можно написать</div>
+    <ol>
+      <li><span class="w-num">01</span>Я раздеваю тебя глазами чаще, чем ты думаешь. Даже когда мы просто сидим рядом и кто-то рассказывает что-то скучное.</li>
+      <li><span class="w-num">02</span>Хочу закрыть тебе рот ладонью, чтобы ты не смогла сдержать стон — и чтобы никто за стеной ничего не понял.</li>
+      <li><span class="w-num">03</span>Хочу, чтобы ты стояла передо мной на коленях и смотрела снизу вверх, пока я не скажу «можно».</li>
+      <li><span class="w-num">04</span>Хочу трахать тебя так, чтобы кровать отъехала от стены, а ты потом делала вид, что ничего не было.</li>
+      <li><span class="w-num">05</span>Хочу чувствовать, как ты сжимаешься вокруг меня, и как твои ногти проходят по моей спине до самых лопаток.</li>
+      <li><span class="w-num">06</span>Хочу, чтобы ты не отодвигалась и не отводила взгляд, когда я кончаю тебе в рот.</li>
+      <li><span class="w-num">07</span>Хочу связать тебе руки шарфом и целовать каждое место, где ты попросишь остановиться. И не останавливаться.</li>
+      <li><span class="w-num">08</span>Хочу услышать от тебя самые грязные слова, какие ты знаешь, сказанные твоим обычным спокойным голосом.</li>
+      <li><span class="w-num">09</span>Хочу взять тебя сзади перед зеркалом, чтобы ты видела, какое у тебя в этот момент лицо.</li>
+      <li><span class="w-num">10</span>Хочу, чтобы ты сидела сверху и сама задавала темп — а я только держал тебя за бёдра и смотрел, как ты это делаешь.</li>
+      <li><span class="w-num">11</span>Хочу почувствовать на языке твою кожу сразу после душа, когда ты ещё горячая и пахнешь своим гелем.</li>
+      <li><span class="w-num">12</span>Хочу, чтобы ты умоляла. Тихо, сбивчиво, краснея до ушей. Я хочу это слышать каждое слово.</li>
+      <li><span class="w-num">13</span>Хочу оставить на тебе следы, которые к утру станут напоминанием — и чтобы ты удивилась, увидев их в зеркале.</li>
+      <li><span class="w-num">14</span>Хочу разбудить тебя ночью поцелуями ниже живота и не дать уснуть до рассвета.</li>
+      <li><span class="w-num">15</span>Хочу, чтобы назавтра ты не могла нормально сидеть на совещании и вспоминала, почему.</li>
+      <li><span class="w-num">16</span>Хочу, чтобы ты кончила, глядя мне прямо в глаза, и вслух сказала, что хочешь ещё.</li>
+      <li><span class="w-num">17</span>Хочу тебя всю, без спешки и без «подожди-подожди». И хочу, чтобы ты хотела того же — громко.</li>
+      <li><span class="w-num">18</span>Хочу, чтобы однажды ты пришла домой, молча встала на колени и подняла на меня глаза. Я всё пойму без слов.</li>
+    </ol>
+    <p class="whisper-final">Если тебе сейчас стыдно — значит, всё правильно. Стыд это просто кровь, которая приливает туда, где тебе понравится.</p>
+  </div>
+</div>
+
 <div class="finale-card rv">
   <div class="finale-seal">✧</div>
   <div class="ending">И если у этой вселенной есть<br><em>любимое место</em> —<br>то оно рядом с тобой.</div>
@@ -682,7 +696,12 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
       'Хочу связать тебе руки и мучить так долго, чтобы ты умоляла.',
       'Хочу кончить тебе на живот и посмотреть тебе в глаза в этот момент. 🔞',
       'Хочу, чтобы ты сама довела себя до предела — а я смотрел и говорил, что тебе делать.',
-      'Хочу утром повторить всё, что было ночью, только медленнее и с самого начала. 💦'
+      'Хочу утром повторить всё, что было ночью, только медленнее и с самого начала. 💦',
+      'Хочу, чтобы ты сказала вслух, куда именно и как хочешь, чтобы я вошёл. Целиком, без «ну ты понял». 🔞',
+      'Хочу держать тебя за волосы и слышать, как ты давишься словами вместо того, чтобы их говорить.',
+      'Хочу, чтобы ты кончила дважды и умоляла остановиться — а я сделал вид, что не расслышал.',
+      'Хочу войти в тебя сзади, пока ты смотришь на нас в зеркале, и заставить тебя смотреть, не отворачиваясь.',
+      'Хочу, чтобы ты потом лежала без сил, а я гладил тебя по спине и говорил, какая ты грязная и моя. 💦'
     ]
   };
   let deck='soft';
@@ -809,7 +828,15 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     'Опиши нашу первую ночь так, как ты её себе представляешь. Подробно.',
     'Скажи «хочу тебя» — вслух. Даже если кто-то рядом. 🔥',
     'Выбери: связать руки, завязать глаза или и то, и другое. Ответ обязателен.',
-    'Напиши мне одно слово, от которого я приеду сразу. Любое. 🔞'
+    'Напиши мне одно слово, от которого я приеду сразу. Любое. 🔞',
+    'Скажи вслух: «я хочу, чтобы ты меня трахнул». Целиком, глядя мне в глаза.',
+    'Опиши по секундам, как ты кончаешь. Что чувствуешь, где, чем.',
+    'Голосовое: скажи моё имя так, как говоришь его, когда я внутри тебя. Я переслушаю раз двадцать. 🔥',
+    'Назови место, где бы ты хотела, чтобы я тебя взял. Прямо сейчас, вслух.',
+    'Напиши, что бы ты со мной сделала, если бы мы были одни и никто не мог помешать.',
+    'Фото: след от поцелуя на таком месте, где его увижу только я. 😈',
+    'Скажи, о чём ты думаешь, когда остаёшься одна в душе. Подробно, без «ни о чём».',
+    'Покажи, как ты меня хочешь. Рукой, взглядом, голосом — чем угодно. Я запомню каждую деталь. 🔞'
   ];
   let diceHot=false;
   let lastDice=-1;
@@ -824,7 +851,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
         if(++n>7){
           clearInterval(iv);
           face.classList.remove('roll');
-          let i=lastDice; while(i===lastDice) i=Math.floor(Math.random()*DICE.length);
+          let i=lastDice; while(i===lastDice) i=Math.floor(Math.random()*POOL.length);
           lastDice=i;
           txt.textContent=POOL[i];
           face.textContent=['✦','✧','♥','♡','✿','❋'][i%6];
@@ -1199,7 +1226,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
   }
 
   /* --- появление блоков --- */
-  const targets = document.querySelectorAll('.card, .hero-frame, .letterbox, .hot-head, .map, .spicy, .seal, .orn-rule, .finale-card, .personal-zone, .together-card');
+  const targets = document.querySelectorAll('.card, .hero-frame, .letterbox, .hot-head, .map, .spicy, .seal, .orn-rule, .finale-card, .whisper, .whisper-stage');
   if('IntersectionObserver' in window){
     targets.forEach(el => el.classList.add('rv'));
     const io = new IntersectionObserver((entries) => {
@@ -1244,7 +1271,7 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
 </script>
 
 <script>
-/* ===== ЖИВОЙ СЛОЙ: прелоадер, звук, фото, счётчик «вместе» ===== */
+/* ===== ЖИВОЙ СЛОЙ: прелоадер, звук, шёпот, финал ===== */
 (function(){
   const $ = (id) => document.getElementById(id);
   const store = {
@@ -1347,102 +1374,56 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
     haptic(6);
   }, true);
 
-  /* ---------- 3. ФОТО-РАМКИ ---------- */
-  const album = $('albumGrid');
-  if(album){
-    const PLACE = ['наше первое фото', 'тот самый вечер', 'мы'];
-    for(let i = 0; i < 3; i++){
-      const slot = document.createElement('div');
-      slot.className = 'photo-slot';
-      slot.dataset.i = i;
-      slot.innerHTML = '<div class="ph"><b>+</b>' + PLACE[i] + '</div>';
-      const input = document.createElement('input');
-      input.type = 'file'; input.accept = 'image/*'; input.style.display = 'none';
-      slot.appendChild(input);
-
-      const saved = store.get('proekt_photo_' + i);
-      if(saved){
-        const img = document.createElement('img');
-        img.src = saved; img.alt = ''; slot.innerHTML = ''; slot.appendChild(img);
-        slot.appendChild(input); slot.classList.add('filled');
-      }
-
-      slot.addEventListener('click', () => input.click());
-      input.addEventListener('change', () => {
-        const f = input.files && input.files[0];
-        if(!f) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-          const im = new Image();
-          im.onload = () => {
-            const max = 900;
-            const k = Math.min(1, max / Math.max(im.width, im.height));
-            const cv = document.createElement('canvas');
-            cv.width = Math.round(im.width * k); cv.height = Math.round(im.height * k);
-            cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height);
-            const data = cv.toDataURL('image/jpeg', .82);
-            if(!store.set('proekt_photo_' + i, data)){
-              alert('Фото слишком большое для памяти телефона — выбери другое, поменьше.');
-              return;
-            }
-            slot.innerHTML = ''; const img = document.createElement('img');
-            img.src = data; slot.appendChild(img); slot.appendChild(input);
-            slot.classList.add('filled');
-            chime(1046.5, .4); haptic(12);
-          };
-          im.src = reader.result;
-        };
-        reader.readAsDataURL(f);
-      });
-      album.appendChild(slot);
-    }
+  /* ---------- 3. ШЁПОТОМ: восемнадцать признаний ---------- */
+  const WHISPER = [
+    "Я раздеваю тебя глазами чаще, чем ты думаешь. Даже когда мы просто сидим рядом и кто-то рассказывает что-то скучное.",
+    "Хочу закрыть тебе рот ладонью, чтобы ты не смогла сдержать стон — и чтобы никто за стеной ничего не понял.",
+    "Хочу, чтобы ты стояла передо мной на коленях и смотрела снизу вверх, пока я не скажу «можно».",
+    "Хочу трахать тебя так, чтобы кровать отъехала от стены, а ты потом делала вид, что ничего не было.",
+    "Хочу чувствовать, как ты сжимаешься вокруг меня, и как твои ногти проходят по моей спине до самых лопаток.",
+    "Хочу, чтобы ты не отодвигалась и не отводила взгляд, когда я кончаю тебе в рот.",
+    "Хочу связать тебе руки шарфом и целовать каждое место, где ты попросишь остановиться. И не останавливаться.",
+    "Хочу услышать от тебя самые грязные слова, какие ты знаешь, сказанные твоим обычным спокойным голосом.",
+    "Хочу взять тебя сзади перед зеркалом, чтобы ты видела, какое у тебя в этот момент лицо.",
+    "Хочу, чтобы ты сидела сверху и сама задавала темп — а я только держал тебя за бёдра и смотрел, как ты это делаешь.",
+    "Хочу почувствовать на языке твою кожу сразу после душа, когда ты ещё горячая и пахнешь своим гелем.",
+    "Хочу, чтобы ты умоляла. Тихо, сбивчиво, краснея до ушей. Я хочу это слышать каждое слово.",
+    "Хочу оставить на тебе следы, которые к утру станут напоминанием — и чтобы ты удивилась, увидев их в зеркале.",
+    "Хочу разбудить тебя ночью поцелуями ниже живота и не дать уснуть до рассвета.",
+    "Хочу, чтобы назавтра ты не могла нормально сидеть на совещании и вспоминала, почему.",
+    "Хочу, чтобы ты кончила, глядя мне прямо в глаза, и вслух сказала, что хочешь ещё.",
+    "Хочу тебя всю, без спешки и без «подожди-подожди». И хочу, чтобы ты хотела того же — громко.",
+    "Хочу, чтобы однажды ты пришла домой, молча встала на колени и подняла на меня глаза. Я всё пойму без слов."
+  ];
+  let wi = -1;
+  const wTxt = $('whisperText'), wNum = $('whisperNum'), wNext = $('whisperNext'),
+        wAll = $('whisperAll'), wList = $('whisperList');
+  function showW(i){
+    if(!wTxt) return;
+    wi = Math.min(WHISPER.length - 1, Math.max(0, i));
+    wTxt.style.opacity = 0;
+    setTimeout(() => {
+      wTxt.textContent = WHISPER[wi];
+      if(wNum) wNum.textContent = String(wi + 1).padStart(2, '0') + ' / ' + WHISPER.length;
+      wTxt.style.opacity = 1;
+      if(wNext && wi === WHISPER.length - 1) wNext.textContent = 'И это ещё не всё ✧';
+    }, 170);
+    if(window.proektChime) window.proektChime(587.33, .22);
   }
-
-  /* ---------- 4. СЧЁТЧИК «МЫ ВМЕСТЕ» ---------- */
-  const KEY = 'proekt_together';
-  function renderTogether(){
-    const box = $('togetherBig'); if(!box) return;
-    const raw = store.get(KEY);
-    if(!raw){
-      box.innerHTML = '—<small>дата не задана</small>';
-      const h = $('togetherHint'); if(h) h.textContent = '';
+  if(wNext) wNext.onclick = () => {
+    if(wi >= WHISPER.length - 1){
+      if(wList){ wList.classList.remove('hidden'); wAll && (wAll.textContent = 'Спрятать'); wNext.textContent = 'Дальше →'; wi = -1; showW(0); }
+      if(window.burst) burst(26);
       return;
     }
-    const diff = Date.now() - new Date(raw).getTime();
-    if(isNaN(diff)){ box.innerHTML = '—<small>дата не распознана</small>'; return; }
-    if(diff < 0){ box.innerHTML = 'ещё впереди<small>но я уже жду</small>'; return; }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor(diff / 3600000) % 24;
-    const m = Math.floor(diff / 60000) % 60;
-    const sec = Math.floor(diff / 1000) % 60;
-    const pad = (n) => String(n).padStart(2, '0');
-    box.innerHTML = d + ' ' + plural(d, 'день', 'дня', 'дней') + ' ' + pad(h) + ':' + pad(m) + ':' + pad(sec) + '<small>вместе · и это только начало</small>';
-    const hint = $('togetherHint');
-    if(hint){
-      hint.textContent = d >= 365 ? 'Уже больше года. И я всё ещё считаю дни.'
-        : d >= 30 ? 'Больше месяца. Мне всё ещё мало.'
-        : d >= 7 ? 'Уже неделя и больше. Привыкай — я надолго.'
-        : 'Совсем недавно, но уже навсегда.';
-    }
-  }
-  function plural(n, one, few, many){
-    const n10 = n % 10, n100 = n % 100;
-    if(n10 === 1 && n100 !== 11) return one;
-    if(n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return few;
-    return many;
-  }
-  const savedT = store.get(KEY);
-  if(savedT && $('togetherAt')){
-    const dt = new Date(savedT);
-    $('togetherAt').value = new Date(dt.getTime() - dt.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-  }
-  if($('togetherSave')) $('togetherSave').onclick = () => {
-    const v = $('togetherAt').value;
-    if(!v){ alert('Выбери дату'); return; }
-    store.set(KEY, new Date(v).toISOString());
-    renderTogether(); chime(783.99, .5); haptic(14);
+    showW(wi + 1);
   };
-  renderTogether(); setInterval(renderTogether, 1000);
+  if(wAll) wAll.onclick = () => {
+    if(!wList) return;
+    const open = wList.classList.toggle('hidden');
+    wAll.textContent = open ? 'Показать сразу все' : 'Спрятать';
+    if(!open){ if(window.burst) burst(30); if(window.proektChime) window.proektChime(880, .35); }
+  };
 
   /* ---------- 5. ФИНАЛ: дождь искр при появлении ---------- */
   const finale = document.querySelector('.finale-card');
