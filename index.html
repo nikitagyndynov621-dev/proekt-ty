@@ -12,13 +12,507 @@
 .wrap{width:min(920px,94vw);margin:auto;position:relative;z-index:1;text-align:center;padding:25px 15px 70px}.screen{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:in .8s both}@keyframes in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}.micro{font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.32em;color:var(--gold)}h1{font-size:clamp(42px,10vw,92px);line-height:.92;font-weight:400;margin:22px 0;text-shadow:0 0 48px #f6d99433}h1 span{color:var(--pink);font-style:italic}h2{font-weight:400;font-size:clamp(30px,6vw,52px);margin:14px 0}.intro{max-width:600px;color:var(--dim);font-size:17px;line-height:1.7;margin:0 auto 30px}.sigil{font-size:44px;color:var(--gold);text-shadow:0 0 28px #f6d99499;animation:throb 2s infinite}@keyframes throb{50%{transform:scale(1.13);filter:brightness(1.5)}}button{cursor:pointer;border:0;border-radius:99px;padding:15px 23px;background:linear-gradient(115deg,#ffe5a6,#f1aabe);color:#291426;font:13px Arial,sans-serif;letter-spacing:.08em;box-shadow:0 8px 40px #f5c19d33;transition:.2s}button:hover{transform:translateY(-3px);filter:brightness(1.08)}button:focus-visible{outline:2px solid white;outline-offset:4px}.secondary{background:#ffffff0a;color:var(--ink);border:1px solid #e4d7fb55;box-shadow:none}.hidden{display:none!important}.count{position:fixed;z-index:10;inset:0;display:grid;place-items:center;background:#090b19ed;color:var(--gold);font-size:clamp(90px,22vw,200px);text-shadow:0 0 70px #ffe4a9;animation:count .8s both}@keyframes count{0%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1.12)}100%{opacity:0;transform:scale(1.6)}}
 .game{min-height:90vh;padding-top:50px}.progress{font:11px Arial,sans-serif;letter-spacing:.15em;color:var(--dim);margin:13px 0 25px}.progress b{color:var(--gold)}.map{width:min(600px,90vw);height:310px;position:relative;margin:0 auto 22px;border:1px solid #d8c2ff33;border-radius:22px;background:radial-gradient(ellipse,#222142aa,#101022bb);overflow:hidden;box-shadow:inset 0 0 65px #9d81ff12,0 20px 70px #0005}.map:before{content:"";position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 35%,#fff 99%,transparent),radial-gradient(1px 1px at 70% 14%,#ffdf9a 99%,transparent),radial-gradient(1px 1px at 84% 70%,#fff 99%,transparent),radial-gradient(1px 1px at 40% 80%,#fff 99%,transparent);opacity:.8}.map-label{position:absolute;top:16px;left:0;right:0;font:9px Arial,sans-serif;letter-spacing:.24em;color:#aba4cc}.line{position:absolute;height:1px;background:linear-gradient(90deg,transparent,#cbbaffaa,transparent);transform-origin:left;opacity:.4}.l1{width:35%;left:20%;top:36%;transform:rotate(19deg)}.l2{width:34%;left:50%;top:47%;transform:rotate(-24deg)}.l3{width:36%;left:26%;top:65%;transform:rotate(-24deg)}.node{position:absolute;width:58px;height:58px;border-radius:50%;padding:0;background:#17162d;border:1px solid #d9c6ff77;color:#d9c8ff;font-size:24px;box-shadow:0 0 20px #b7a5ff22;z-index:2}.node:hover{box-shadow:0 0 30px #cdb7ff99}.node.done{background:#684d75;color:#ffe5a6;border-color:#ffe5a6;box-shadow:0 0 28px #f6d99488}.n1{left:14%;top:24%}.n2{left:43%;top:38%}.n3{right:13%;top:22%}.n4{left:27%;bottom:12%}.n5{right:28%;bottom:11%}.tip{min-height:29px;color:var(--pink);font-size:17px}.section{padding:45px 0;animation:in .8s both}.seal{font-size:44px;color:var(--gold);margin:12px}.letterbox{width:min(570px,92vw);margin:25px auto;padding:34px 25px;border:1px solid #eed99b77;border-radius:8px;background:linear-gradient(145deg,#fff9ee,#f5e6dc);color:#382337;box-shadow:0 20px 90px #f6d99420;position:relative}.letterbox:before,.letterbox:after{content:'✦';position:absolute;color:#b4838e;font-size:19px}.letterbox:before{top:12px;left:14px}.letterbox:after{bottom:12px;right:14px}.letterbox h3{font-size:27px;font-weight:400;margin:0 0 15px;color:#71405f}.letterbox p{font-size:17px;line-height:1.75;margin:0}.ending{font-size:clamp(24px,5vw,39px);line-height:1.45;color:#fff0da;margin:30px auto;max-width:690px}.ending em{color:var(--pink);font-weight:400}.sign{font-style:italic;color:#c7a6bb}.spicy{width:min(600px,92vw);margin:28px auto;padding:25px 22px;border:1px solid #ffaec566;border-radius:18px;background:linear-gradient(145deg,#ffafc512,#b7a5ff0b);color:#ffeaf0;line-height:1.8;font-size:clamp(16px,3vw,20px);animation:in .7s both;box-shadow:0 0 50px #ffafc511}.spicy b{color:var(--pink);font-weight:400}.spark{position:fixed;z-index:9;pointer-events:none;font-size:20px;animation:fly 1.8s ease-out forwards}@keyframes fly{to{transform:translate(var(--x),var(--y)) rotate(160deg) scale(.1);opacity:0}}.footer{color:#807b9c;font:9px Arial,sans-serif;letter-spacing:.2em;margin-top:30px}
 @media(max-width:520px){.map{height:270px}.node{width:51px;height:51px}.n1{left:9%}.n3{right:8%}.n4{left:21%}.n5{right:21%}.letterbox{padding:29px 20px}.intro{font-size:15px}}
+
+/* ================= ГОРЯЧИЙ АРХИВ: интерактивы ================= */
+.hot-archive{max-width:820px;margin:36px auto 8px;text-align:left;animation:in .8s both}
+.hot-head{text-align:center;margin-bottom:20px}
+.hot-head h2{margin:10px 0 6px}
+.hot-sub{color:var(--dim);font-size:14px;line-height:1.6;margin:0 auto;max-width:520px}
+.unpack{margin:14px auto 0;max-width:330px}
+.unpack-bar{height:4px;border-radius:99px;background:#ffffff14;overflow:hidden;margin-bottom:7px}
+.unpack-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#f6d994,#ffaec5,#b7a5ff);transition:width .5s ease;box-shadow:0 0 12px #ffaec577}
+.unpack-lbl{font:9px Arial,sans-serif;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+.hot-grid{display:grid;gap:14px}
+.card{position:relative;padding:22px 19px 20px;border:1px solid #e4d7fb2e;border-radius:18px;background:linear-gradient(152deg,#ffffff09,#ffffff02);box-shadow:0 18px 50px #00000038,inset 0 1px 0 #ffffff12;transition:border-color .3s,transform .3s}
+.card:hover{border-color:#e4d7fb55;transform:translateY(-2px)}
+.card .micro{display:block;margin-bottom:9px;font-size:9px;letter-spacing:.3em;color:#c9b3ff}
+.card h4{margin:0 0 5px;font-weight:400;font-size:21px;line-height:1.2;color:#fff2e0}
+.card .hint{margin:0 0 16px;font:13px/1.55 Arial,sans-serif;color:var(--dim)}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:13px}
+.mini{font:10px Arial,sans-serif;letter-spacing:.18em;color:#8b84a8;text-transform:uppercase}
+.btn-sm{cursor:pointer;border:0;border-radius:99px;padding:11px 18px;background:linear-gradient(115deg,#ffe5a6,#f1aabe);color:#291426;font:12px Arial,sans-serif;letter-spacing:.06em;box-shadow:0 8px 26px #f5c19d2e;transition:.2s}
+.btn-sm:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.ghost-sm{cursor:pointer;border:1px solid #e4d7fb44;border-radius:99px;padding:10px 16px;background:#ffffff08;color:#e9e2f7;font:12px Arial,sans-serif;letter-spacing:.05em;transition:.2s}
+.ghost-sm:hover{background:#ffffff14}
+
+/* 01 дозиметр */
+.dose-track{position:relative;height:10px;border-radius:99px;background:#ffffff10;overflow:hidden;margin:6px 0 8px;border:1px solid #ffffff12}
+.dose-fill{height:100%;width:6%;border-radius:99px;background:linear-gradient(90deg,#f6d994,#ffb3c8 45%,#ff5f8f 75%,#b7a5ff);transition:width .55s cubic-bezier(.22,1,.36,1);box-shadow:0 0 16px #ff8fb377}
+.dose-scale{display:flex;justify-content:space-between;font:9px Arial,sans-serif;letter-spacing:.14em;color:#8b84a8;text-transform:uppercase;margin-bottom:14px}
+.dose-scale span.on{color:var(--gold)}
+.dose-text{min-height:74px;margin:0;font-size:17px;line-height:1.65;color:#fff0da;font-style:italic;transition:opacity .3s}
+
+/* 02 скретч */
+.scratch-wrap{position:relative;border-radius:14px;overflow:hidden;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;background:radial-gradient(ellipse at 30% 20%,#241f3c,#12101f);border:1px solid #ffffff14;margin-top:4px}
+.scratch-reveal{min-height:152px;display:grid;place-items:center;padding:20px 16px;text-align:center;font-size:17px;line-height:1.6;color:#ffeaf0}
+.scratch-reveal b{color:var(--pink);font-weight:400}
+#scratchCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair;transition:opacity .6s ease}
+#scratchCanvas.gone{opacity:0;pointer-events:none}
+
+/* 03 кубик */
+.dice-face{width:84px;height:84px;margin:2px auto 12px;border-radius:20px;display:grid;place-items:center;font-size:34px;color:var(--gold);background:linear-gradient(150deg,#2a2440,#191528);border:1px solid #f6d99444;box-shadow:0 0 34px #f6d99422,inset 0 1px 0 #ffffff18;transition:transform .2s}
+.dice-face.roll{animation:diceShake .5s linear infinite}
+@keyframes diceShake{0%,100%{transform:rotate(-6deg) scale(1)}50%{transform:rotate(8deg) scale(1.06)}}
+.dice-text{min-height:58px;text-align:center;font-size:17px;line-height:1.6;color:#fff0da;margin:0}
+
+/* 04 конструктор */
+.build-cols{display:grid;gap:10px}
+.build-group{border:1px dashed #e4d7fb2b;border-radius:14px;padding:10px 11px}
+.build-group .mini{display:block;margin-bottom:8px}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{cursor:pointer;border:1px solid #e4d7fb3a;background:#ffffff07;color:#ddd4ee;border-radius:99px;padding:7px 12px;font:12px Arial,sans-serif;transition:.18s}
+.chip:hover{background:#ffffff12}
+.chip.sel{background:linear-gradient(115deg,#ffe5a6,#f1aabe);color:#291426;border-color:transparent;font-weight:700}
+.build-result{margin:14px 0 0;padding:15px 16px;border-radius:14px;background:#ffaec510;border:1px solid #ffaec540;color:#ffeaf0;font-size:17px;line-height:1.6;min-height:64px}
+.build-result b{color:var(--pink);font-weight:400}
+
+/* 05 кнопка */
+.heat-btn{width:100%;padding:20px 16px;border:1px solid #ff7a9e66;border-radius:16px;background:linear-gradient(150deg,#3a1226,#5e1633);color:#ffe3ec;font:14px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.25s;box-shadow:0 0 30px #ff5f8f22,inset 0 1px 0 #ffffff18}
+.heat-btn:hover{box-shadow:0 0 46px #ff5f8f55}
+.heat-btn:active{transform:scale(.985)}
+.thermo{height:8px;border-radius:99px;background:#ffffff10;margin:15px 0 10px;overflow:hidden;border:1px solid #ffffff12}
+.thermo-fill{height:100%;width:4%;border-radius:99px;background:linear-gradient(90deg,#7ad7a7,#f6d994 40%,#ff8f6b 70%,#ff3f6e);transition:width .5s cubic-bezier(.22,1,.36,1);box-shadow:0 0 14px #ff5f8f88}
+.heat-text{margin:0;font-size:16px;line-height:1.6;color:#fff0da;min-height:52px}
+
+/* 06 таймер */
+.timer-big{font-size:clamp(28px,7vw,46px);line-height:1.1;color:var(--gold);letter-spacing:.04em;text-shadow:0 0 34px #f6d99455;font-variant-numeric:tabular-nums;margin:4px 0 12px}
+.timer-big small{display:block;font:9px Arial,sans-serif;letter-spacing:.28em;color:#8b84a8;text-transform:uppercase;margin-top:8px;text-shadow:none}
+.dt{background:#ffffff0c;border:1px solid #e4d7fb3a;border-radius:12px;padding:11px 13px;color:#f4eefe;font:13px Arial,sans-serif;color-scheme:dark}
+
+.proekt-flash{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);z-index:99;padding:12px 20px;border-radius:99px;background:#171327ee;border:1px solid #f6d99455;color:#ffe9c9;font:12px Arial,sans-serif;letter-spacing:.05em;opacity:0;transition:.3s;backdrop-filter:blur(10px);pointer-events:none;max-width:86vw;text-align:center}
+.proekt-flash.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:520px){.card{padding:19px 16px}.card h4{font-size:19px}.dose-text,.heat-text,.dice-text{font-size:16px}.scratch-reveal{min-height:170px;font-size:16px}}
 </style></head>
 <body><main class="wrap">
 <section class="screen" id="start"><div class="micro">засекреченное досье · доступ по приглашению</div><div class="sigil">✧</div><h1>Проект<br><span>«Ты»</span></h1><p class="intro">В одной далёкой галактике случилось невероятное.<br>Один человек понял, что нашёл своё любимое чудо.<br><br>Для продолжения истории требуется один смелый клик.</p><button id="launch">Начать миссию&nbsp; →</button><div class="footer">УРОВЕНЬ ДОСТУПА: ТОЛЬКО ТЫ</div></section>
 <section class="screen game hidden" id="game"><div class="micro">миссия 01 · восстановить созвездие</div><h2>Найди пять искр</h2><p class="intro">Каждая хранит одну причину, почему ты особенная.<br>Коснись звёзд на карте, чтобы собрать созвездие.</p><div class="progress">СОБРАНО: <b id="score">0</b> / 5</div><div class="map"><div class="map-label">СЕКТОР «САМОЕ ВАЖНОЕ»</div><div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><button class="node n1" aria-label="Звезда 1">✧</button><button class="node n2" aria-label="Звезда 2">✦</button><button class="node n3" aria-label="Звезда 3">✧</button><button class="node n4" aria-label="Звезда 4">✦</button><button class="node n5" aria-label="Звезда 5">✧</button></div><div class="tip" id="tip">Карта ждёт своего исследователя.</div><button class="hidden" id="unlock">Созвездие собрано. Открыть послание →</button></section>
-<section class="section hidden" id="reveal"><div class="micro">доступ подтверждён · секретный архив открыт</div><div class="seal">✧ ♡ ✧</div><h2>Вот оно, моё главное сокровище</h2><div class="letterbox"><h3>Для тебя</h3><p>Я мог бы написать здесь целую вселенную красивых слов. Но скажу самое главное: мне невероятно повезло встретить тебя. Спасибо за твой свет, за смех и за то, что рядом с тобой даже простые моменты становятся теми, которые хочется помнить. Я выбираю тебя — не по звёздам, а всем сердцем. ♡</p></div><button id="secretButton" class="secondary">Снять цензуру · дальше очень пошло · 18+</button><div class="spicy hidden" id="spicy" aria-live="polite">Я люблю тебя до безумия. А теперь — без красивых оправданий: <b>чёрт, как же я тебя хочу.</b> Хочу сорвать с тебя одежду, целовать жадно и долго, прижать к себе и покрывать поцелуями, пока у нас обоих не собьётся дыхание. Хочу шептать тебе на ухо всё, о чём приличные люди обычно молчат, и чувствовать, как между нами исчезает последнее расстояние. Ты заводишь меня одним взглядом. Если ты тоже этого хочешь — давай однажды закроем дверь, выключим телефоны и оставим весь мир за порогом. ♡</div><div class="ending">И если у этой вселенной есть<br><em>любимое место</em> —<br>то оно рядом с тобой.</div><p class="sign">Навсегда твой поклонник,<br>твой человек</p><button id="encore">Запустить звёздный дождь ✨</button><div class="footer">ДОСЬЕ ЗАКРЫТО · ЧУВСТВА НЕ ЗАСЕКРЕЧИВАТЬ</div></section>
+<section class="section hidden" id="reveal"><div class="micro">доступ подтверждён · секретный архив открыт</div><div class="seal">✧ ♡ ✧</div><h2>Вот оно, моё главное сокровище</h2><div class="letterbox"><h3>Для тебя</h3><p>Я мог бы написать здесь целую вселенную красивых слов. Но скажу самое главное: мне невероятно повезло встретить тебя. Спасибо за твой свет, за смех и за то, что рядом с тобой даже простые моменты становятся теми, которые хочется помнить. Я выбираю тебя — не по звёздам, а всем сердцем. ♡</p></div><button id="secretButton" class="secondary">Снять цензуру · дальше очень пошло · 18+</button><div class="spicy hidden" id="spicy" aria-live="polite">Я люблю тебя до безумия. А теперь — без красивых оправданий: <b>чёрт, как же я тебя хочу.</b> Хочу сорвать с тебя одежду, целовать жадно и долго, прижать к себе и покрывать поцелуями, пока у нас обоих не собьётся дыхание. Хочу шептать тебе на ухо всё, о чём приличные люди обычно молчат, и чувствовать, как между нами исчезает последнее расстояние. Ты заводишь меня одним взглядом. Если ты тоже этого хочешь — давай однажды закроем дверь, выключим телефоны и оставим весь мир за порогом. ♡</div>
+  <div class="hot-archive" id="hotArchive">
+    <div class="hot-head">
+      <div class="micro">архив без цензуры · только для тебя</div>
+      <h2>Горячий архив</h2>
+      <p class="hot-sub">Шесть интерактивов, которые я собрал специально, чтобы ты краснела. Открывай по одному — счётчик внизу покажет, сколько ты уже распаковала.</p>
+      <div class="unpack">
+        <div class="unpack-bar"><div class="unpack-fill" id="unpackFill"></div></div>
+        <div class="unpack-lbl">распаковано: <span id="unpackNum">0</span> / 12</div>
+      </div>
+    </div>
+
+    <div class="hot-grid">
+
+      <!-- 01 ДОЗИМЕТР -->
+      <div class="card">
+        <span class="micro">интерактив 01 · откровенность</span>
+        <h4>Дозиметр пошлости</h4>
+        <p class="hint">Пять ступеней. Каждая следующая — честнее предыдущей. Дальше только для твоих глаз.</p>
+        <div class="dose-track"><div class="dose-fill" id="doseFill"></div></div>
+        <div class="dose-scale" id="doseScale">
+          <span>нежность</span><span>флирт</span><span>искры</span><span>горячо</span><span>🔞</span>
+        </div>
+        <p class="dose-text" id="doseText">Потяни уровень — и я скажу честно, что думаю.</p>
+        <div class="row">
+          <button class="btn-sm" id="doseUp">+1 уровень</button>
+          <button class="ghost-sm" id="doseReset">сбросить</button>
+        </div>
+      </div>
+
+      <!-- 02 СКРЕТЧ -->
+      <div class="card">
+        <span class="micro">интерактив 02 · секрет под туманом</span>
+        <h4>Сотри цензуру</h4>
+        <p class="hint">Проведи пальцем по «туману» — под ним одно из моих откровений. Каждый раз новое.</p>
+        <div class="scratch-wrap">
+          <div class="scratch-reveal" id="scratchText">…</div>
+          <canvas id="scratchCanvas"></canvas>
+        </div>
+        <div class="row">
+          <button class="ghost-sm" id="scratchNew">Другое откровение ✧</button>
+          <span class="mini" id="scratchCount">стёрто: 0</span>
+        </div>
+      </div>
+
+      <!-- 03 КУБИК -->
+      <div class="card">
+        <span class="micro">интерактив 03 · воля случая</span>
+        <h4>Кубик желаний</h4>
+        <p class="hint">Одно нажатие — одно задание. Считается выполненным, даже если ты просто покраснела.</p>
+        <div class="dice-face" id="diceFace">✧</div>
+        <p class="dice-text" id="diceText">Кубик ещё не брошен…</p>
+        <div class="row">
+          <button class="btn-sm" id="diceRoll">Бросить кубик</button>
+          <button class="ghost-sm" id="diceCopy">Отправить мне 💌</button>
+        </div>
+      </div>
+
+      <!-- 04 КОНСТРУКТОР -->
+      <div class="card">
+        <span class="micro">интерактив 04 · собери фразу</span>
+        <h4>Собери мне сообщение</h4>
+        <p class="hint">Три выбора — и готовая фраза. Отправляй, я жду с телефоном в руке.</p>
+        <div class="build-cols" id="buildCols"></div>
+        <p class="build-result" id="buildResult">Выбери по одному варианту в каждой строке…</p>
+        <div class="row">
+          <button class="btn-sm" id="buildCopy">Скопировать 💌</button>
+          <button class="ghost-sm" id="buildShuffle">Перемешать ✧</button>
+        </div>
+      </div>
+
+      <!-- 05 КНОПКА -->
+      <div class="card">
+        <span class="micro">интерактив 05 · проверка силы воли</span>
+        <h4>Не нажимай на эту кнопку</h4>
+        <p class="hint">Серьёзно. Каждое нажатие повышает градус, и остановиться будет сложнее.</p>
+        <button class="heat-btn" id="heatBtn">не нажимать</button>
+        <div class="thermo"><div class="thermo-fill" id="thermoFill"></div></div>
+        <p class="heat-text" id="heatText">Градус: 36.6° — пока всё прилично.</p>
+      </div>
+
+      <!-- 06 ТАЙМЕР -->
+      <div class="card">
+        <span class="micro">интерактив 06 · обратный отсчёт</span>
+        <h4>До нашей встречи</h4>
+        <p class="hint">Поставь дату и время — и пусть цифры тают. Чем меньше осталось, тем горячее.</p>
+        <div class="timer-big" id="timerBig">—<small>поставь дату встречи</small></div>
+        <div class="row">
+          <input type="datetime-local" class="dt" id="meetAt" />
+          <button class="ghost-sm" id="meetSave">Запомнить</button>
+        </div>
+        <p class="heat-text" id="timerHint" style="margin-top:12px"></p>
+      </div>
+
+    </div>
+  </div>
+
+<div class="ending">И если у этой вселенной есть<br><em>любимое место</em> —<br>то оно рядом с тобой.</div><p class="sign">Навсегда твой поклонник,<br>твой человек</p><button id="encore">Запустить звёздный дождь ✨</button><div class="footer">ДОСЬЕ ЗАКРЫТО · ЧУВСТВА НЕ ЗАСЕКРЕЧИВАТЬ</div></section>
 </main><script>
 const $=id=>document.getElementById(id);function burst(n=40){const glyphs=['✦','✧','♥','♡','✿'];for(let i=0;i<n;i++){const s=document.createElement('span');s.className='spark';s.textContent=glyphs[Math.random()*glyphs.length|0];s.style.left=(40+Math.random()*20)+'vw';s.style.top=(40+Math.random()*20)+'vh';s.style.color=['#f6d994','#ffaec5','#b7a5ff','#fff1e3'][i%4];s.style.setProperty('--x',((Math.random()-.5)*innerWidth*.9)+'px');s.style.setProperty('--y',(-60-Math.random()*innerHeight*.8)+'px');s.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),2400)}}
 $('launch').onclick=()=>{let k=3;const c=document.createElement('div');c.className='count';document.body.appendChild(c);c.textContent=k;const t=setInterval(()=>{if(--k>0)c.textContent=k;else{clearInterval(t);c.textContent='✧';setTimeout(()=>{c.remove();$('start').classList.add('hidden');$('game').classList.remove('hidden');scrollTo({top:0,behavior:'smooth'});burst(25)},600)}},700)};
 const reasons=['Ты умеешь делать мир добрее.','Твой смех — отдельное чудо.','В тебе удивительно сочетаются нежность и сила.','С тобой даже тишина уютная.','Ты — именно тот человек, которого хочется беречь.'];let found=0;document.querySelectorAll('.node').forEach((b,i)=>b.onclick=()=>{if(b.classList.contains('done'))return;b.classList.add('done');b.textContent='♥';found++;$('score').textContent=found;$('tip').textContent=reasons[i];burst(9);if(found===5){$('tip').textContent='Созвездие совпало. Кажется, вселенная всё решила.';$('unlock').classList.remove('hidden');burst(28)}});$('unlock').onclick=()=>{$('game').classList.add('hidden');$('reveal').classList.remove('hidden');scrollTo({top:0,behavior:'smooth'});burst(50)};$('secretButton').onclick=()=>{$('spicy').classList.toggle('hidden');$('secretButton').textContent=$('spicy').classList.contains('hidden')?'Снять цензуру · дальше очень пошло · 18+':'Секрет раскрыт · спрятать';if(!$('spicy').classList.contains('hidden')){$('spicy').scrollIntoView({behavior:'smooth',block:'center'});burst(20)}};$('encore').onclick=()=>{burst(110);$('encore').textContent='Сияние — это ты ♡'};
-</script></body></html>
+</script>
+<script>
+/* ================= ГОРЯЧИЙ АРХИВ · логика интерактивов ================= */
+(function(){
+  const $=(id)=>document.getElementById(id);
+  const store={
+    get(k){try{return localStorage.getItem(k)}catch(e){return null}},
+    set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  };
+
+  /* ---- общий счётчик «распаковано» ---- */
+  const TOTAL=12;
+  let unpacked=Number(store.get('proekt_unpacked')||0);
+  function bump(n){
+    unpacked=Math.min(TOTAL,Math.max(unpacked,n));
+    store.set('proekt_unpacked',unpacked);
+    const num=$('unpackNum'), fill=$('unpackFill');
+    if(num) num.textContent=unpacked;
+    if(fill) fill.style.width=(unpacked/TOTAL*100)+'%';
+  }
+  function addUnpack(){ if(unpacked<TOTAL) bump(unpacked+1); }
+  bump(unpacked);
+
+  /* ============ 01 · ДОЗИМЕТР ============ */
+  const DOSE=[
+    {label:'нежность', text:'Хочу держать тебя за руку, целовать в висок и говорить глупости. Пока что — только это. 😌'},
+    {label:'флирт', text:'Хочу, чтобы ты пришла ко мне в моей рубашке. И, желательно, без всего под ней. 👀'},
+    {label:'искры', text:'Хочу целовать тебя не только в губы: шея, ключицы, линия плеча — туда, где ты этого совсем не ждёшь. 💋'},
+    {label:'горячо', text:'Хочу прижать тебя к стене, услышать, как сбивается дыхание, и целовать, пока ты не скажешь «хватит»… а потом ещё немного. 🔥'},
+    {label:'🔞', text:'Хочу закрыть дверь, выключить телефон и любить тебя так, чтобы ты забыла, как тебя зовут. А утром напомнил. 🔞'}
+  ];
+  let dose=Number(store.get('proekt_dose')||0);
+  function renderDose(animate){
+    const fill=$('doseFill'), txt=$('doseText'), scale=$('doseScale');
+    if(!fill) return;
+    fill.style.width=(dose===0?6:(dose/DOSE.length*100))+'%';
+    if(dose===0){ txt.textContent='Потяни уровень — и я скажу честно, что думаю.'; txt.style.opacity=1; }
+    else{
+      const d=DOSE[dose-1];
+      if(animate){ txt.style.opacity=0; setTimeout(()=>{txt.textContent=d.text; txt.style.opacity=1;},140); }
+      else txt.textContent=d.text;
+    }
+    if(scale) [...scale.children].forEach((s,i)=>s.classList.toggle('on', i<dose));
+    store.set('proekt_dose',dose);
+  }
+  renderDose(false);
+  const doseUp=$('doseUp');
+  if(doseUp) doseUp.onclick=()=>{
+    if(dose>=DOSE.length){ dose=0; renderDose(true); addUnpack(); return; }
+    dose++; renderDose(true); addUnpack();
+    if(dose===DOSE.length){ burst(22); $('doseUp').textContent='пройти заново ↺'; }
+    else $('doseUp').textContent='+1 уровень';
+  };
+  const doseReset=$('doseReset');
+  if(doseReset) doseReset.onclick=()=>{ dose=0; $('doseUp').textContent='+1 уровень'; renderDose(true); };
+
+  /* ============ 02 · СКРЕТЧ ============ */
+  const SCRATCH=[
+    'Я думаю о тебе не только днём. И не только нежно. 🔥',
+    'Ты в моей голове в самых разных позах. И я не жалуюсь. 😏',
+    'Хочу проснуться раньше тебя, смотреть на спящую… а потом целовать, пока ты не откроешь глаза.',
+    'Если бы я мог загадать что угодно — ты была бы сейчас здесь. И без одежды. 🔞',
+    'Мне нравится, как ты кусаешь губы, когда думаешь о чём-то приятном. Я хочу быть причиной.',
+    'Твой утренний голос, сонный и тихий, заводит меня сильнее любого фото. 💋',
+    'Хочу, чтобы ты шептала мне на ухо то, что не напишешь даже в сообщении.',
+    'Одна твоя улыбка — и мне приходится напоминать себе, что мы не одни. 😅',
+    'Хочу целовать тебя в шею сзади, медленно, пока ты не начнёшь таять.',
+    'Самое пошлое, что я делал за эти дни — перечитывал твои сообщения ночью. Не один раз. 🔞'
+  ];
+  let scratchIdx=-1, scratched=Number(store.get('proekt_scratched')||0);
+  const canvas=$('scratchCanvas'), stext=$('scratchText'), scount=$('scratchCount');
+  let ctx=null, cleared=false, drawing=false, prog=0;
+
+  function pickScratch(){
+    let i=scratchIdx;
+    while(i===scratchIdx) i=Math.floor(Math.random()*SCRATCH.length);
+    scratchIdx=i;
+    if(stext) stext.innerHTML='<span>'+SCRATCH[i]+'</span>';
+  }
+  function paintFog(){
+    if(!canvas) return;
+    const dpr=Math.min(2,window.devicePixelRatio||1);
+    const w=canvas.parentElement.clientWidth, h=canvas.parentElement.clientHeight;
+    canvas.width=Math.max(1,w*dpr); canvas.height=Math.max(1,h*dpr);
+    ctx=canvas.getContext('2d');
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalCompositeOperation='source-over';
+    const g=ctx.createLinearGradient(0,0,w,h);
+    g.addColorStop(0,'#2c2545'); g.addColorStop(.45,'#3a2f56'); g.addColorStop(1,'#221c36');
+    ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+    for(let i=0;i<90;i++){
+      ctx.globalAlpha=.15+Math.random()*.5;
+      ctx.fillStyle=i%3?'#ffe9c9':'#c9b3ff';
+      ctx.fillRect(Math.random()*w,Math.random()*h,1.5,1.5);
+    }
+    ctx.globalAlpha=1;
+    ctx.fillStyle='rgba(255,229,166,.65)';
+    ctx.font='10px Arial, sans-serif';
+    ctx.textAlign='center';
+    ctx.letterSpacing='2px';
+    ctx.fillText('СОТРИ ПАЛЬЦЕМ  ✧', w/2, h/2+3);
+    canvas.classList.remove('gone');
+    canvas.style.opacity=1;
+    cleared=false; prog=0;
+  }
+  function spot(e){
+    const r=canvas.getBoundingClientRect();
+    return {x:e.clientX-r.left, y:e.clientY-r.top};
+  }
+  function eraseAt(x,y){
+    if(!ctx) return;
+    ctx.globalCompositeOperation='destination-out';
+    ctx.beginPath(); ctx.arc(x,y,26,0,Math.PI*2); ctx.fill();
+  }
+  function checkProgress(){
+    if(!ctx||cleared) return;
+    const w=canvas.width,h=canvas.height;
+    try{
+      const data=ctx.getImageData(0,0,w,h).data;
+      let empty=0;
+      for(let i=3;i<data.length;i+=4*40){ if(data[i]<40) empty++; }
+      const total=Math.ceil(data.length/(4*40));
+      prog=empty/total;
+    }catch(e){ prog=1; }
+    if(prog>0.40){
+      cleared=true;
+      canvas.classList.add('gone');
+      scratched++; store.set('proekt_scratched',scratched);
+      if(scount) scount.textContent='стёрто: '+scratched;
+      addUnpack(); burst(16);
+    }
+  }
+  if(canvas){
+    ['pointerdown'].forEach(ev=>canvas.addEventListener(ev,(e)=>{
+      drawing=true; canvas.setPointerCapture&&canvas.setPointerCapture(e.pointerId);
+      const p=spot(e); eraseAt(p.x,p.y); e.preventDefault();
+    }));
+    canvas.addEventListener('pointermove',(e)=>{
+      if(!drawing) return;
+      const p=spot(e); eraseAt(p.x,p.y); e.preventDefault();
+    });
+    ['pointerup','pointercancel','pointerleave'].forEach(ev=>canvas.addEventListener(ev,()=>{
+      if(!drawing) return; drawing=false; checkProgress();
+    }));
+  }
+  if($('scratchNew')) $('scratchNew').onclick=()=>{ pickScratch(); paintFog(); painted=true; };
+  if(scount) scount.textContent='стёрто: '+scratched;
+  pickScratch();
+
+  // Секция «Горячий архив» скрыта до разблокировки — рисуем туман, когда она станет видимой
+  let painted=false;
+  function tryPaint(){
+    if(painted||!canvas) return;
+    const w=canvas.parentElement.clientWidth, h=canvas.parentElement.clientHeight;
+    if(w>10 && h>10){ paintFog(); painted=true; }
+  }
+  tryPaint();
+  const revealEl=document.getElementById('reveal');
+  if(revealEl && window.MutationObserver){
+    new MutationObserver(tryPaint).observe(revealEl,{attributes:true,attributeFilter:['class']});
+  }
+  const poller=setInterval(()=>{ if(painted){clearInterval(poller);} else tryPaint(); },600);
+  let rz; window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ if(!cleared){paintFog();} },250); });
+
+  /* ============ 03 · КУБИК ============ */
+  const DICE=[
+    'Пришли голосовое шёпотом — что-нибудь, что нельзя говорить вслух. 🎙️',
+    'Скажи одно желание вслух. Я его исполню. Любое.',
+    'Пришли фото того, в чём ты сейчас — без фильтров и без цензуры. 😏',
+    'Позвони мне, и я расскажу, что сделаю с тобой при встрече. Готовься краснеть.',
+    'Сегодня решаешь ты: где, когда и как. Я только подчиняюсь. 🔞',
+    'Придумай мне прозвище — и я буду отзываться на него всю ночь.',
+    'Сегодня медленно, долго и очень близко. Без спешки.',
+    'Одно сообщение — и я у тебя через час. Проверим?',
+    'Выбери музыку для нашей встречи. Под неё будет всё. 🎶',
+    'Продержись без «я скучаю» один день. Спойлер: не выйдет.',
+    'Напиши мне одну строчку, которую хотела сказать в глаза, но не решалась.',
+    'Обними меня так, будто мы не виделись год. Дальше — по обстоятельствам. 🤍'
+  ];
+  let lastDice=-1;
+  if($('diceRoll')){
+    $('diceRoll').onclick=()=>{
+      const face=$('diceFace'), txt=$('diceText');
+      face.classList.add('roll');
+      let n=0;
+      const iv=setInterval(()=>{
+        txt.textContent=DICE[Math.floor(Math.random()*DICE.length)];
+        if(++n>7){
+          clearInterval(iv);
+          face.classList.remove('roll');
+          let i=lastDice; while(i===lastDice) i=Math.floor(Math.random()*DICE.length);
+          lastDice=i;
+          txt.textContent=DICE[i];
+          face.textContent=['✦','✧','♥','♡','✿','❋'][i%6];
+          addUnpack(); burst(14);
+        }
+      },90);
+    };
+  }
+  if($('diceCopy')) $('diceCopy').onclick=()=>{
+    const t=$('diceText').textContent;
+    if(!t||t.indexOf('не брошен')>0) return;
+    copyText('Кубик желаний на сайте: «'+t+'» — выполняю 😏');
+  };
+
+  /* ============ 04 · КОНСТРУКТОР ============ */
+  const BUILD=[
+    {label:'с чего начну', items:['Я хочу','Я мечтаю','Мне снилось','Я готова','Мне безумно хочется']},
+    {label:'что сделаю', items:['целовать тебя','прижать тебя к себе','сорвать с тебя рубашку','шептать тебе на ухо','засыпать на твоём плече','не отпускать тебя']},
+    {label:'где и когда', items:['всю ночь','прямо сейчас','первым делом при встрече','под дождём','где угодно, но без свидетелей','на рассвете']}
+  ];
+  const picks=[0,0,0];
+  function renderBuild(){
+    const box=$('buildCols'); if(!box) return;
+    box.innerHTML='';
+    BUILD.forEach((group,gi)=>{
+      const g=document.createElement('div'); g.className='build-group';
+      const lbl=document.createElement('span'); lbl.className='mini'; lbl.textContent=group.label;
+      const chips=document.createElement('div'); chips.className='chips';
+      group.items.forEach((it,ii)=>{
+        const b=document.createElement('button'); b.type='button';
+        b.className='chip'+(picks[gi]===ii?' sel':''); b.textContent=it;
+        b.onclick=()=>{ picks[gi]=ii; renderBuild(); addUnpack(); };
+        chips.appendChild(b);
+      });
+      g.appendChild(lbl); g.appendChild(chips); box.appendChild(g);
+    });
+    const res=$('buildResult');
+    if(res){
+      const s=BUILD[0].items[picks[0]]+' '+BUILD[1].items[picks[1]]+' '+BUILD[2].items[picks[2]];
+      res.innerHTML='<b>'+s.charAt(0).toUpperCase()+s.slice(1)+'.</b> Отправь — и я всё сделаю. 💋';
+    }
+  }
+  renderBuild();
+  if($('buildShuffle')) $('buildShuffle').onclick=()=>{
+    picks[0]=Math.floor(Math.random()*BUILD[0].items.length);
+    picks[1]=Math.floor(Math.random()*BUILD[1].items.length);
+    picks[2]=Math.floor(Math.random()*BUILD[2].items.length);
+    renderBuild(); addUnpack();
+  };
+  if($('buildCopy')) $('buildCopy').onclick=()=>{
+    const t=$('buildResult').textContent.replace(' Отправь — и я всё сделаю. 💋','');
+    copyText(t);
+  };
+
+  /* ============ 05 · КНОПКА ============ */
+  const HEAT=[
+    {t:36.6, s:'Градус: 36.6° — пока всё прилично.'},
+    {t:38.2, s:'Я же просил не нажимать. Ладно… теперь ты у меня в голове. 😌'},
+    {t:41.5, s:'Хорошо. Теперь я думаю о тебе под другим углом. И угол мне нравится.'},
+    {t:47.0, s:'Осторожно: включается режим «ближе, чем прилично». 🔥'},
+    {t:56.5, s:'Хочу обнять тебя так, чтобы ты тихо ахнула. И не отпускать до утра.'},
+    {t:100, s:'🔞 Всё, тормоза отказали. Дальше я скажу лично — настрой ушко и не перебивай.'}
+  ];
+  let heat=0;
+  function renderHeat(){
+    const h=HEAT[heat];
+    if($('heatText')) $('heatText').textContent=h.s;
+    if($('thermoFill')) $('thermoFill').style.width=Math.min(100,(heat+1)/HEAT.length*100)+'%';
+    if($('heatBtn')) $('heatBtn').textContent = heat===0?'не нажимать':'не нажимать ('+h.t+'°)';
+  }
+  renderHeat();
+  if($('heatBtn')) $('heatBtn').onclick=()=>{
+    if(heat<HEAT.length-1){ heat++; renderHeat(); addUnpack(); burst(6+heat*3); }
+    else { heat=0; renderHeat(); }
+    if(heat===HEAT.length-1) burst(30);
+  };
+
+  /* ============ 06 · ТАЙМЕР ============ */
+  const MEET_KEY='proekt_meet_at';
+  function renderTimer(){
+    const box=$('timerBig'); if(!box) return;
+    const raw=store.get(MEET_KEY);
+    if(!raw){ box.innerHTML='—<small>поставь дату встречи</small>'; if($('timerHint')) $('timerHint').textContent=''; return; }
+    const diff=new Date(raw).getTime()-Date.now();
+    if(isNaN(diff)){ box.innerHTML='—<small>дата не распознана</small>'; return; }
+    if(diff<=0){
+      box.innerHTML='встреча уже началась<small>беги ко мне</small>';
+      if($('timerHint')) $('timerHint').textContent='Мы уже вместе — остальное не важно. 💋';
+      return;
+    }
+    const d=Math.floor(diff/86400000), h=Math.floor(diff/3600000)%24, m=Math.floor(diff/60000)%60, s=Math.floor(diff/1000)%60;
+    const pad=(n)=>String(n).padStart(2,'0');
+    box.innerHTML=(d>0?d+' дн ':'')+pad(h)+':'+pad(m)+':'+pad(s)+'<small>до встречи</small>';
+    if($('timerHint')){
+      const hint = diff<86400000 ? 'Меньше суток. Я уже начинаю волноваться. 🔥'
+        : diff<7*86400000 ? 'Уже скоро. Может, стоит начать готовиться заранее? 😏'
+        : 'Ещё есть время. Но я уже считаю.';
+      $('timerHint').textContent=hint;
+    }
+  }
+  if($('meetSave')) $('meetSave').onclick=()=>{
+    const v=$('meetAt').value;
+    if(!v){ alert('Выбери дату и время'); return; }
+    store.set(MEET_KEY,new Date(v).toISOString());
+    renderTimer(); addUnpack(); burst(12);
+  };
+  const existing=store.get(MEET_KEY);
+  if(existing&&$('meetAt')){
+    const dt=new Date(existing);
+    const local=new Date(dt.getTime()-dt.getTimezoneOffset()*60000).toISOString().slice(0,16);
+    $('meetAt').value=local;
+  }
+  renderTimer(); setInterval(renderTimer,1000);
+
+  /* ---- копирование ---- */
+  function copyText(t){
+    const done=()=>{ flash('Скопировано — отправляй мне 💌'); };
+    if(navigator.share){
+      navigator.share({text:t}).then(done).catch(()=>fallback());
+    } else fallback();
+    function fallback(){
+      const ta=document.createElement('textarea');
+      ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy'); done();}catch(e){prompt('Скопируй вручную:',t);}
+      ta.remove();
+    }
+  }
+  function flash(msg){
+    let el=document.querySelector('.proekt-flash');
+    if(!el){ el=document.createElement('div'); el.className='proekt-flash'; document.body.appendChild(el); }
+    el.textContent=msg; el.classList.add('show');
+    clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2200);
+  }
+})();
+</script>
+</body></html>
