@@ -92,16 +92,252 @@
 .wheel-inner span{position:absolute;left:50%;top:50%;transform-origin:0 0;font:10px Arial,sans-serif;letter-spacing:.06em;color:#ffe9c9;white-space:nowrap;text-transform:uppercase}
 .wheel-pointer{position:absolute;left:50%;top:-14px;transform:translateX(-50%);color:#ffaec5;font-size:19px;z-index:3;filter:drop-shadow(0 4px 10px #ff5f8f88)}
 .wheel-center{position:absolute;inset:36%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a2f56,#15111f);border:1px solid #f6d99466;display:grid;place-items:center;font-size:20px;color:var(--gold);z-index:2;box-shadow:0 0 26px #f6d99433}
+
+/* =====================================================================
+   ★ ЛЮКС-СЛОЙ: пафосное гравированное досье ★
+   ===================================================================== */
+
+/* --- фон: небо, туманность, зерно, рамка --- */
+#starfield{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.nebula{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.nebula span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;will-change:transform}
+.nebula span:nth-child(1){width:52vw;height:52vw;left:-14vw;top:-10vw;background:radial-gradient(circle,#4a2a6b,#4a2a6b00 70%);animation:drift1 26s ease-in-out infinite alternate}
+.nebula span:nth-child(2){width:46vw;height:46vw;right:-12vw;top:26vh;background:radial-gradient(circle,#7a2b4a,#7a2b4a00 70%);animation:drift2 32s ease-in-out infinite alternate}
+.nebula span:nth-child(3){width:60vw;height:60vw;left:16vw;bottom:-22vw;background:radial-gradient(circle,#2b3a6b,#2b3a6b00 70%);animation:drift1 38s ease-in-out infinite alternate-reverse}
+@keyframes drift1{to{transform:translate3d(4vw,3vh,0) scale(1.12)}}
+@keyframes drift2{to{transform:translate3d(-4vw,-4vh,0) scale(1.08)}}
+.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px 160px}
+.page-frame{position:fixed;inset:12px;z-index:3;pointer-events:none;border:1px solid #f6d99433;border-radius:3px;
+  box-shadow:inset 0 0 0 4px transparent, inset 0 0 0 5px #f6d99414}
+.page-frame::before,.page-frame::after{content:"";position:absolute;width:26px;height:26px;border:1px solid #f6d99480;opacity:.9}
+.page-frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.page-frame::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+@media(max-width:600px){.page-frame{inset:7px}.page-frame::before,.page-frame::after{width:18px;height:18px}}
+
+/* --- типографика --- */
+.wrap{position:relative;z-index:1}
+h1{font-size:clamp(46px,11.5vw,104px);line-height:.9;letter-spacing:-.02em;
+   background:linear-gradient(102deg,#fff6e2 0%,#f6d994 26%,#ffe9c9 44%,#d9b06a 62%,#fff3dd 84%);
+   background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+   animation:goldShine 9s linear infinite;text-shadow:none;filter:drop-shadow(0 6px 26px #f6d99426)}
+@keyframes goldShine{to{background-position:220% 0}}
+h1 span{color:transparent;font-style:italic}
+h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(29px,6.2vw,50px);letter-spacing:-.01em;line-height:1.1}
+.orn-title{position:relative;display:inline-block;
+  background:linear-gradient(102deg,#fff6e2 0%,#f6d994 30%,#ffe9c9 50%,#d9b06a 70%,#fff3dd 90%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:goldShine 11s linear infinite;filter:drop-shadow(0 4px 18px #f6d9941f)}
+.micro{color:var(--gold);letter-spacing:.34em;font-size:9.5px}
+
+/* орнаментальная линия */
+.orn-rule{display:flex;align-items:center;justify-content:center;gap:12px;margin:16px auto 20px;width:100%;max-width:min(430px,88vw)}
+.orn-rule i{flex:1;height:1px;background:linear-gradient(90deg,transparent,#f6d99499)}
+.orn-rule i:last-child{background:linear-gradient(270deg,transparent,#f6d99499)}
+.orn-rule em{font-style:normal;font-size:11px;color:var(--gold);text-shadow:0 0 14px #f6d99488;transform:translateY(-1px)}
+.orn-bottom{margin-top:34px}
+.classify{display:inline-block;margin:2px auto 6px;padding:6px 14px;border:1px solid #ff7a9e55;border-radius:2px;
+  font:9px Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#ffb3c7;background:#ff7a9e10;transform:rotate(-.6deg)}
+
+/* --- герой --- */
+.hero-frame{position:relative;width:min(660px,94vw);padding:34px 24px 26px;border:1px solid #f6d9943d;border-radius:2px;
+  background:linear-gradient(168deg,#ffffff07,#ffffff01);box-shadow:0 40px 120px #00000055,inset 0 1px 0 #ffffff12;
+  display:flex;flex-direction:column;align-items:center}
+.hero-frame::before,.hero-frame::after{content:"";position:absolute;width:40px;height:40px;border:1px solid #f6d99466}
+.hero-frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.hero-frame::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.hero-top{display:flex;align-items:center;gap:12px;width:100%;justify-content:center;margin-bottom:22px}
+.h-line{flex:1;max-width:70px;height:1px;background:linear-gradient(90deg,transparent,#f6d99480)}
+.h-line:last-child{background:linear-gradient(270deg,transparent,#f6d99480)}
+.seal-wrap{position:relative;width:104px;height:104px;display:grid;place-items:center;margin-bottom:14px}
+.seal-ring{position:absolute;inset:0;border-radius:50%;border:1px solid #f6d99455}
+.seal-ring-2{inset:9px;border-style:dashed;border-color:#f6d99433;animation:spinSlow 26s linear infinite}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+.sigil{font-size:42px;color:var(--gold);text-shadow:0 0 34px #f6d994a6,0 0 70px #f6d99455;animation:throb 3.4s infinite}
+.dossier-no{font:9px Arial,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:#a89cc4;margin-bottom:12px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:26px;padding-top:16px;border-top:1px solid #ffffff0e;width:100%}
+.hero-meta span{font:8.5px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8b84a8;padding:4px 9px;border:1px solid #ffffff12;border-radius:2px}
+.intro{font-size:clamp(15px,3.4vw,18px);line-height:1.75;color:#c9c2dd}
+
+/* --- кнопки: золочёные (только для основных действий) --- */
+button{position:relative;overflow:hidden;transition:.28s cubic-bezier(.2,.8,.2,1)}
+button::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,#fff6e233 48%,transparent 62%);
+  transform:translateX(-130%);transition:transform .7s ease}
+button:hover::after{transform:translateX(130%)}
+
+#launch,#unlock,#encore,#secretButton,.btn-sm,.ghost-sm,.deck-chip,.dice-mode{
+  border-radius:2px;letter-spacing:.15em;text-transform:uppercase;font:10.5px Arial,sans-serif;padding:16px 24px;
+  background:linear-gradient(160deg,#0d0b18,#150f22);color:var(--gold);border:1px solid #f6d99466;
+  box-shadow:0 1px 0 #ffffff14 inset,0 14px 40px #f6d9940f,inset 0 0 22px #f6d9940a;
+}
+#launch:hover,#unlock:hover,#encore:hover,#secretButton:hover,.btn-sm:hover,.ghost-sm:hover,.deck-chip:hover,.dice-mode:hover{
+  transform:translateY(-2px);border-color:#f6d994aa;
+  box-shadow:0 1px 0 #ffffff1f inset,0 22px 54px #f6d99422,inset 0 0 34px #f6d99414;filter:none}
+.cta,#launch,.btn-sm,.deck-chip.on,.dice-mode.on{
+  background:linear-gradient(160deg,#f9e3b0,#e8bd77 40%,#f6d994 70%,#d9ad63);color:#20130a;
+  border-color:#fff3d8;font-weight:700;
+  box-shadow:0 1px 0 #fff8e8 inset,0 -2px 0 #9a6f2e55 inset,0 18px 50px #f6d99433}
+.cta:hover,#launch:hover,.btn-sm:hover{box-shadow:0 1px 0 #fff8e8 inset,0 -2px 0 #9a6f2e66 inset,0 24px 64px #f6d99455}
+.ghost-sm,.deck-chip:not(.on),.dice-mode:not(.on){
+  background:#ffffff07;color:#e9e2f7;border-color:#ffffff2a}
+.ghost-sm:hover,.deck-chip:not(.on):hover,.dice-mode:not(.on):hover{background:#ffffff12;border-color:#f6d99480}
+.deck-chip.on,.dice-mode.on{text-shadow:none}
+
+/* чипсы конструктора и спец-кнопки — сохраняем их родной вид */
+.chip{border-radius:99px!important;padding:8px 13px!important;letter-spacing:.02em!important;text-transform:none!important;
+  font:12px Arial,sans-serif!important}
+.chip.sel{background:linear-gradient(115deg,#ffe5a6,#f1aabe)!important;color:#291426!important;border-color:transparent!important;font-weight:700}
+.heat-btn{border-radius:2px!important;padding:20px 16px!important;font:12px Arial,sans-serif!important;letter-spacing:.2em!important;
+  background:linear-gradient(150deg,#3a1226,#5e1633)!important;color:#ffe3ec!important;border:1px solid #ff7a9e66!important;
+  box-shadow:0 0 34px #ff5f8f22,inset 0 1px 0 #ffffff18!important}
+.heat-btn:hover{box-shadow:0 0 52px #ff5f8f55!important}
+.node{border-radius:50%!important;padding:0!important;letter-spacing:0!important;text-transform:none!important;
+  font-size:24px!important;width:58px;height:58px}
+
+.secondary{border-radius:2px!important;background:#ffffff07!important;color:#e9e2f7!important;border:1px solid #ffffff2a!important;
+  letter-spacing:.15em!important;text-transform:uppercase;font:10.5px Arial,sans-serif!important;padding:16px 24px!important}
+.secondary:hover{background:#ffffff12!important;border-color:#f6d99480!important}
+
+/* --- карта --- */
+.map{border-radius:2px;border:1px solid #f6d9943a;box-shadow:inset 0 0 70px #9d81ff14,0 30px 90px #00000066}
+.map-label{letter-spacing:.3em;color:#9d93c0}
+.node{border-radius:50%;border:1px solid #f6d99480;background:radial-gradient(circle at 40% 35%,#241f3d,#12101f);
+  color:var(--gold);box-shadow:0 0 0 6px #f6d9940a,0 0 26px #f6d99426;transition:.3s}
+.node::before{content:"";position:absolute;inset:-11px;border-radius:50%;border:1px dashed #f6d99426;animation:spinSlow 18s linear infinite}
+.node:hover{box-shadow:0 0 0 8px #f6d99414,0 0 40px #f6d99470;transform:translateY(-2px)}
+.node.done{border-color:#ffe9c9;background:radial-gradient(circle at 40% 35%,#7a5a8e,#3a2340);box-shadow:0 0 0 6px #f6d9941f,0 0 44px #f6d994a6}
+.line{height:1px;background:linear-gradient(90deg,transparent,#f6d994aa,transparent);opacity:.5}
+
+/* --- письмо --- */
+.letterbox{border:1px solid #f6d994;border-radius:2px;padding:38px 26px 34px;
+  background-image:linear-gradient(160deg,#fffdf7,#f7ece0 55%,#f2e2d6),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23p)' opacity='0.35'/%3E%3C/svg%3E");
+  box-shadow:0 40px 110px #f6d99418,0 2px 0 #ffffffcc inset,0 0 0 6px #f6d99412,0 0 0 7px #f6d99433}
+.letterbox::before,.letterbox::after{color:#a8737f;font-size:17px}
+.letterbox h3{font-size:29px;letter-spacing:.01em;color:#6b3a58}
+.letterbox p{font-size:17.5px;line-height:1.85;color:#3d2437;text-align:left}
+.letterbox p::first-letter{float:left;font-size:52px;line-height:.82;padding:6px 10px 0 0;color:#a8547a;font-family:Georgia,serif}
+.letterbox{position:relative}
+.stamp{position:absolute;top:-14px;right:-10px;width:82px;height:82px;border-radius:50%;border:2px solid #b0556f;
+  display:grid;place-items:center;text-align:center;color:#a8455f;font:6.6px Arial,sans-serif;letter-spacing:.11em;
+  text-transform:uppercase;transform:rotate(11deg);background:#fff8f0cc;box-shadow:0 6px 18px #00000022;opacity:.9;line-height:1.3}
+
+/* --- горячий архив: гравированные карточки --- */
+.hot-grid{counter-reset:card;gap:26px}
+.card{overflow:hidden;border-radius:2px;border:1px solid #f6d99433;
+  background:linear-gradient(168deg,#ffffff09,#ffffff02);
+  box-shadow:0 34px 90px #00000055,inset 0 1px 0 #ffffff14,inset 0 0 40px #f6d99406;
+  padding:26px 21px 22px}
+.card::before{counter-increment:card;content:counter(card,decimal-leading-zero);
+  position:absolute;top:10px;right:14px;font-family:Georgia,serif;font-size:44px;line-height:1;color:#f6d994;opacity:.12;
+  letter-spacing:-.04em;pointer-events:none}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:2px;
+  background:
+    linear-gradient(90deg,#f6d994 0%,transparent 100%) left top/26px 1px no-repeat,
+    linear-gradient(180deg,#f6d994 0%,transparent 100%) left top/1px 26px no-repeat,
+    linear-gradient(270deg,#f6d994 0%,transparent 100%) right bottom/26px 1px no-repeat,
+    linear-gradient(0deg,#f6d994 0%,transparent 100%) right bottom/1px 26px no-repeat;
+  opacity:.55}
+.card:hover{transform:translateY(-4px);border-color:#f6d99466;box-shadow:0 44px 110px #00000066,inset 0 1px 0 #ffffff1c}
+.card h4{font-size:23px;letter-spacing:-.005em}
+.card .micro{color:#c9b3ff;letter-spacing:.3em}
+.card .hint{color:#a9a1c4}
+
+/* появление при скролле */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* --- колесо: золотой обод --- */
+.wheel{border-radius:50%;box-shadow:0 0 0 2px #f6d99499,0 0 0 9px #0c0a16,0 0 0 10px #f6d99455,0 30px 70px #00000066,inset 0 0 40px #00000099}
+.wheel-pointer{color:#ffe9c9;text-shadow:0 0 16px #ffcf8e}
+.wheel-inner{border-radius:50%}
+.wheel-center{background:radial-gradient(circle at 35% 30%,#3a2f56,#100c1a);border:1px solid #f6d99499;box-shadow:0 0 30px #f6d99444,inset 0 1px 0 #ffffff22}
+
+/* --- прочие детали --- */
+.proekt-flash{border-radius:2px!important;letter-spacing:.16em!important;text-transform:uppercase;font-size:10px!important;
+  background:linear-gradient(160deg,#120e1e,#1b1329)!important;border:1px solid #f6d99488!important;color:#ffe9c9!important;
+  box-shadow:0 20px 50px #00000088,inset 0 1px 0 #ffffff14}
+.dt{border-radius:2px!important;border-color:#f6d99455!important}
+.sign-off{font-family:Georgia,serif;font-style:italic;color:#c7a6bb;font-size:14px;margin:10px 0 6px}
+.serial{display:inline-block;margin-top:8px;font-size:8px;letter-spacing:.26em;color:#6f688c}
+.footer{letter-spacing:.28em;font-size:8.5px;color:#8b84a8}
+.unpack-lbl{letter-spacing:.3em}
+.unpack-bar{height:3px;background:#ffffff0e}
+.unpack-fill{background:linear-gradient(90deg,#d9ad63,#f6d994,#ffe9c9);box-shadow:0 0 16px #f6d99477}
+.progress{letter-spacing:.28em}
+
+@media(max-width:520px){
+  .hero-frame{padding:24px 15px 20px}
+  h1{font-size:clamp(40px,12.5vw,64px)}
+  .seal-wrap{width:84px;height:84px;margin-bottom:10px}
+  .sigil{font-size:34px}
+  .dossier-no{margin-bottom:8px;letter-spacing:.26em}
+  .hero-top{margin-bottom:16px}
+  .intro{margin-bottom:22px}
+  .hero-meta{margin-top:18px;padding-top:13px;gap:7px}
+  .hero-meta span{font-size:7.5px;padding:3px 7px}
+  .orn-rule{margin:10px auto 14px}
+  .card{padding:22px 16px 20px}
+  .card::before{font-size:36px;top:8px;right:11px}
+  .letterbox{padding:30px 18px 26px}
+  .letterbox p{font-size:16.5px;line-height:1.8}
+  .stamp{width:70px;height:70px;font-size:6px;line-height:1.35;top:-10px;right:-6px}
+  .orn-rule{margin:12px auto 16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .seal-ring-2,.node::before,.nebula span,h1,.sigil{animation:none!important}
+  .rv{opacity:1!important;transform:none!important}
+}
 </style></head>
-<body><main class="wrap">
-<section class="screen" id="start"><div class="micro">засекреченное досье · доступ по приглашению</div><div class="sigil">✧</div><h1>Проект<br><span>«Ты»</span></h1><p class="intro">В одной далёкой галактике случилось невероятное.<br>Один человек понял, что нашёл своё любимое чудо.<br><br>Для продолжения истории требуется один смелый клик.</p><button id="launch">Начать миссию&nbsp; →</button><div class="footer">УРОВЕНЬ ДОСТУПА: ТОЛЬКО ТЫ</div></section>
+<body>
+<canvas id="starfield" aria-hidden="true"></canvas>
+<div class="nebula" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="page-frame" aria-hidden="true"></div>
+<main class="wrap">
+<section class="screen" id="start">
+<div class="hero-frame rv">
+  <div class="hero-top">
+    <span class="h-line"></span>
+    <span class="micro">засекреченное досье · доступ по приглашению</span>
+    <span class="h-line"></span>
+  </div>
+
+  <div class="seal-wrap">
+    <span class="seal-ring"></span>
+    <span class="seal-ring seal-ring-2"></span>
+    <span class="sigil">✧</span>
+  </div>
+
+  <div class="dossier-no">досье № 002 · экземпляр 1 из 1</div>
+
+  <h1>Проект<br><span>«Ты»</span></h1>
+  <div class="orn-rule"><i></i><em>✦</em><i></i></div>
+
+  <p class="intro">В одной далёкой галактике случилось невероятное.<br>Один человек понял, что нашёл своё любимое чудо.<br><br>Для продолжения истории требуется один смелый клик.</p>
+
+  <button id="launch" class="cta">Начать миссию&nbsp; →</button>
+
+  <div class="hero-meta">
+    <span>шифр · ✧-2026</span>
+    <span>статус · активно</span>
+    <span>доступ · только ты</span>
+  </div>
+</div>
+<div class="footer">УРОВЕНЬ ДОСТУПА: ТОЛЬКО ТЫ</div>
+</section>
 <section class="screen game hidden" id="game"><div class="micro">миссия 01 · восстановить созвездие</div><h2>Найди пять искр</h2><p class="intro">Каждая хранит одну причину, почему ты особенная.<br>Коснись звёзд на карте, чтобы собрать созвездие.</p><div class="progress">СОБРАНО: <b id="score">0</b> / 5</div><div class="map"><div class="map-label">СЕКТОР «САМОЕ ВАЖНОЕ»</div><div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><button class="node n1" aria-label="Звезда 1">✧</button><button class="node n2" aria-label="Звезда 2">✦</button><button class="node n3" aria-label="Звезда 3">✧</button><button class="node n4" aria-label="Звезда 4">✦</button><button class="node n5" aria-label="Звезда 5">✧</button></div><div class="tip" id="tip">Карта ждёт своего исследователя.</div><button class="hidden" id="unlock">Созвездие собрано. Открыть послание →</button></section>
-<section class="section hidden" id="reveal"><div class="micro">доступ подтверждён · секретный архив открыт</div><div class="seal">✧ ♡ ✧</div><h2>Вот оно, моё главное сокровище</h2><div class="letterbox"><h3>Для тебя</h3><p>Я мог бы написать здесь целую вселенную красивых слов. Но скажу самое главное: мне невероятно повезло встретить тебя. Спасибо за твой свет, за смех и за то, что рядом с тобой даже простые моменты становятся теми, которые хочется помнить. Я выбираю тебя — не по звёздам, а всем сердцем. ♡</p></div><button id="secretButton" class="secondary">Снять цензуру · дальше очень пошло · 18+</button><div class="spicy hidden" id="spicy" aria-live="polite">Я люблю тебя до безумия. А теперь — без красивых оправданий: <b>чёрт, как же я тебя хочу.</b> Хочу сорвать с тебя одежду, целовать жадно и долго, прижать к себе и покрывать поцелуями, пока у нас обоих не собьётся дыхание. Хочу шептать тебе на ухо всё, о чём приличные люди обычно молчат, и чувствовать, как между нами исчезает последнее расстояние. Ты заводишь меня одним взглядом. Если ты тоже этого хочешь — давай однажды закроем дверь, выключим телефоны и оставим весь мир за порогом. ♡</div>
+<section class="section hidden" id="reveal"><div class="micro">доступ подтверждён · протокол ✧ вскрыт</div><div class="seal">✧ ♡ ✧</div><h2 class="orn-title">Вот оно, моё главное сокровище</h2>
+<div class="orn-rule"><i></i><em>✦</em><i></i></div><div class="letterbox"><div class="stamp">совершенно<br>секретно<br>✧</div><h3>Для тебя</h3><p>Я мог бы написать здесь целую вселенную красивых слов. Но скажу самое главное: мне невероятно повезло встретить тебя. Спасибо за твой свет, за смех и за то, что рядом с тобой даже простые моменты становятся теми, которые хочется помнить. Я выбираю тебя — не по звёздам, а всем сердцем. ♡</p></div><button id="secretButton" class="secondary">Снять цензуру · дальше очень пошло · 18+</button><div class="spicy hidden" id="spicy" aria-live="polite">Я люблю тебя до безумия. А теперь — без красивых оправданий: <b>чёрт, как же я тебя хочу.</b> Хочу сорвать с тебя одежду, целовать жадно и долго, прижать к себе и покрывать поцелуями, пока у нас обоих не собьётся дыхание. Хочу шептать тебе на ухо всё, о чём приличные люди обычно молчат, и чувствовать, как между нами исчезает последнее расстояние. Ты заводишь меня одним взглядом. Если ты тоже этого хочешь — давай однажды закроем дверь, выключим телефоны и оставим весь мир за порогом. ♡</div>
   <div class="hot-archive" id="hotArchive">
     <div class="hot-head">
       <div class="micro">архив без цензуры · только для тебя</div>
-      <h2>Горячий архив</h2>
-      <p class="hot-sub">Шесть интерактивов, которые я собрал специально, чтобы ты краснела. Открывай по одному — счётчик внизу покажет, сколько ты уже распаковала.</p>
+      <h2 class="orn-title">Горячий архив</h2>
+      <div class="orn-rule"><i></i><em>🔞</em><i></i></div>
+      <div class="classify">классификация: совершенно секретно · 18+</div>
+      <p class="hot-sub">Девять протоколов, которые я собрал специально, чтобы ты краснела. Открывай по одному — счётчик внизу покажет, сколько ты уже распаковала.</p>
       <div class="unpack">
         <div class="unpack-bar"><div class="unpack-fill" id="unpackFill"></div></div>
         <div class="unpack-lbl">распаковано: <span id="unpackNum">0</span> / 18</div>
@@ -240,7 +476,9 @@
     </div>
   </div>
 
-<div class="ending">И если у этой вселенной есть<br><em>любимое место</em> —<br>то оно рядом с тобой.</div><p class="sign">Навсегда твой поклонник,<br>твой человек</p><button id="encore">Запустить звёздный дождь ✨</button><div class="footer">ДОСЬЕ ЗАКРЫТО · ЧУВСТВА НЕ ЗАСЕКРЕЧИВАТЬ</div></section>
+<div class="ending">И если у этой вселенной есть<br><em>любимое место</em> —<br>то оно рядом с тобой.</div><p class="sign">Навсегда твой поклонник,<br>твой человек</p><button id="encore">Запустить звёздный дождь ✨</button><div class="orn-rule orn-bottom"><i></i><em>❦</em><i></i></div>
+<div class="sign-off">подписано кровью, чернилами и любовью</div>
+<div class="footer">ДОСЬЕ ЗАКРЫТО · ЧУВСТВА НЕ ЗАСЕКРЕЧИВАТЬ<br><span class="serial">серия ✧-2026 · экземпляр 1 из 1 · личное дело</span></div></section>
 </main><script>
 const $=id=>document.getElementById(id);function burst(n=40){const glyphs=['✦','✧','♥','♡','✿'];for(let i=0;i<n;i++){const s=document.createElement('span');s.className='spark';s.textContent=glyphs[Math.random()*glyphs.length|0];s.style.left=(40+Math.random()*20)+'vw';s.style.top=(40+Math.random()*20)+'vh';s.style.color=['#f6d994','#ffaec5','#b7a5ff','#fff1e3'][i%4];s.style.setProperty('--x',((Math.random()-.5)*innerWidth*.9)+'px');s.style.setProperty('--y',(-60-Math.random()*innerHeight*.8)+'px');s.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),2400)}}
 $('launch').onclick=()=>{let k=3;const c=document.createElement('div');c.className='count';document.body.appendChild(c);c.textContent=k;const t=setInterval(()=>{if(--k>0)c.textContent=k;else{clearInterval(t);c.textContent='✧';setTimeout(()=>{c.remove();$('start').classList.add('hidden');$('game').classList.remove('hidden');scrollTo({top:0,behavior:'smooth'});burst(25)},600)}},700)};
@@ -769,6 +1007,131 @@ const reasons=['Ты умеешь делать мир добрее.','Твой �
   document.addEventListener('proekt-dicemode',(e)=>{
     if(window.__proektSetDiceHot) window.__proektSetDiceHot(e.detail);
   });
+})();
+</script>
+
+<script>
+/* ===== ЗВЁЗДНОЕ НЕБО + ПОЯВЛЕНИЕ БЛОКОВ + ПАРАЛЛАКС ===== */
+(function(){
+  const rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('starfield');
+  if(cv && !rm){
+    const ctx = cv.getContext('2d');
+    let stars=[], shooters=[], w=0, h=0, dpr=1, raf=null, t=0;
+
+    function resize(){
+      dpr = Math.min(1.6, window.devicePixelRatio || 1);
+      w = cv.clientWidth = window.innerWidth;
+      h = cv.clientHeight = window.innerHeight;
+      cv.width = Math.floor(w*dpr); cv.height = Math.floor(h*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const n = Math.round(Math.min(190, Math.max(70, w*h/9000)));
+      stars = Array.from({length:n}, () => ({
+        x: Math.random()*w, y: Math.random()*h,
+        r: Math.random()*1.5 + .25,
+        a: Math.random()*Math.PI*2,
+        sp: .12 + Math.random()*.45,
+        hue: Math.random() < .22 ? 'gold' : (Math.random() < .2 ? 'rose' : 'white')
+      }));
+    }
+
+    const COLORS = { white:'255,247,235', gold:'246,217,148', rose:'255,174,197' };
+
+    function spawnShooter(){
+      const fromLeft = Math.random() > .5;
+      shooters.push({
+        x: fromLeft ? -40 : w + 40,
+        y: Math.random()*h*.55,
+        vx: (fromLeft ? 1 : -1) * (5 + Math.random()*3.5),
+        vy: 1.6 + Math.random()*1.8,
+        life: 1
+      });
+    }
+
+    function frame(){
+      t += .016;
+      ctx.clearRect(0,0,w,h);
+
+      for(const s of stars){
+        s.a += .012 * s.sp * 3;
+        const tw = .55 + Math.sin(s.a) * .45;
+        const col = COLORS[s.hue];
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(' + col + ',' + (tw * .95).toFixed(3) + ')';
+        ctx.arc(s.x, s.y, s.r * (1 + tw*.25), 0, Math.PI*2);
+        ctx.fill();
+        if(s.r > 1.15){
+          ctx.fillStyle = 'rgba(' + col + ',' + (tw*.11).toFixed(3) + ')';
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r*3.4, 0, Math.PI*2); ctx.fill();
+        }
+        s.y += s.sp * .05;
+        if(s.y > h + 4){ s.y = -4; s.x = Math.random()*w; }
+      }
+
+      if(Math.random() < .006 && shooters.length < 2) spawnShooter();
+      shooters = shooters.filter(sh => sh.life > 0);
+      for(const sh of shooters){
+        sh.x += sh.vx; sh.y += sh.vy; sh.life -= .012;
+        const grd = ctx.createLinearGradient(sh.x, sh.y, sh.x - sh.vx*7, sh.y - sh.vy*7);
+        grd.addColorStop(0, 'rgba(255,240,215,' + Math.max(0,sh.life) + ')');
+        grd.addColorStop(1, 'rgba(255,240,215,0)');
+        ctx.strokeStyle = grd; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(sh.x, sh.y); ctx.lineTo(sh.x - sh.vx*7, sh.y - sh.vy*7); ctx.stroke();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    resize();
+    frame();
+    window.addEventListener('resize', () => { cancelAnimationFrame(raf); resize(); frame(); }, {passive:true});
+    document.addEventListener('visibilitychange', () => {
+      if(document.hidden){ cancelAnimationFrame(raf); raf=null; }
+      else if(!raf){ frame(); }
+    });
+  }
+
+  /* --- появление блоков --- */
+  const targets = document.querySelectorAll('.card, .hero-frame, .letterbox, .hot-head, .map, .spicy, .seal, .orn-rule');
+  if('IntersectionObserver' in window){
+    targets.forEach(el => el.classList.add('rv'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.08, rootMargin:'0px 0px -40px 0px'});
+    targets.forEach(el => io.observe(el));
+    // страховка: если что-то не открылось — показываем
+    setTimeout(() => targets.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight) el.classList.add('in');
+    }), 1400);
+    document.querySelectorAll('#unlock').forEach(b => b.addEventListener('click', () => {
+      setTimeout(() => document.querySelectorAll('.hot-grid .card').forEach((c,i) => {
+        setTimeout(() => c.classList.add('in'), i*70);
+      }), 260);
+    }));
+  } else {
+    targets.forEach(el => el.classList.add('in'));
+  }
+
+  /* --- лёгкий параллакс на курсор (только мышки) --- */
+  if(window.matchMedia && window.matchMedia('(pointer:fine)').matches && !rm){
+    const neb = document.querySelectorAll('.nebula span');
+    window.addEventListener('pointermove', (e) => {
+      const dx = (e.clientX / window.innerWidth - .5), dy = (e.clientY / window.innerHeight - .5);
+      neb.forEach((el,i) => {
+        const k = (i+1) * 9;
+        el.style.transform = 'translate3d(' + (dx*k) + 'px,' + (dy*k) + 'px,0)';
+      });
+    }, {passive:true});
+  }
+
+  /* --- подсказка-печать: тап по сиджилу --- */
+  const sig = document.querySelector('.sigil');
+  if(sig){
+    sig.style.cursor = 'pointer';
+    sig.addEventListener('click', () => {
+      if(window.burst) burst(40);
+    });
+  }
 })();
 </script>
 </body></html>
